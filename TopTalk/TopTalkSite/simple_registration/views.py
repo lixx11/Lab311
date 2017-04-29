@@ -11,7 +11,8 @@ def index(request):
     if request.method == 'GET':
         form = InfoForm()
         context = {'form': form}
-        return render(request, 'index.html', context)
+        # weihe edited: wrong template path. 04/29
+        return render(request, 'simple_registration/index.html', context)
     else:
         form = InfoForm(request.POST)
         if form.is_valid():

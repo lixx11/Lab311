@@ -1,32 +1,58 @@
+{% load static %}
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--<link rel="stylesheet" href="{% static 'css/simplegrid.css' %}" />-->
+  <!--<link rel="stylesheet" href="{% static 'css/form.css' %}" />-->
+  <link rel="stylesheet" href="{% static 'css/formBetter.css' %}" />
 
   <title></title>
 </head>
 
 <body>
-  <form method="post" action="index">
-    {% csrf_token %}
-    <div>
-      <label for="{{ form.name.id_for_label }}">姓名:</label> {{ form.name }}
-    </div>
-    <div>
-      <label for="{{ form.organization.id_for_label }}">工作单位:</label> {{ form.organization }}
-    </div>
-    <div>
-      <label for="{{ form.phone_number.id_for_label }}">手机号:</label> {{ form.phone_number }}
-    </div>
-    <div>
-      <label for="{{ form.email.id_for_label }}">邮箱:</label> {{ form.email }}
-    </div>
-    <div>
-      <label for="{{ form.category.id_for_label }}">人员类别:</label> {{ form.category }}
-    </div>
-    <div>
-      <input type="submit" value="OK" />
-    </div>
-  </form>
+  <div class="grid grid-pad" id="form-wrapper">
+    <form method="post" action="index">
+      {% csrf_token %}
+
+      <div class="col-6-12 input-field">
+        <input type="text" name="name" placeholder="姓名" id="id_name" maxlength="128" required/>
+      </div>
+
+      <div class="col-8-12 input-field">
+        <input type="text" name="organization" placeholder="工作单位" id="id_organization" maxlength="128" required/>
+      </div>
+
+      <div class="col-8-12 input-field">
+        <input type="text" name="phone_number" placeholder="手机号" id="id_phone_number" maxlength="128" required/>
+      </div>
+
+      <div class="col-8-12 input-field">
+        <input type="email" name="email" placeholder="邮箱" id="id_email" maxlength="128" required/>
+      </div>
+
+      <div class="col-8-12 input-field">
+        <select name="category" placeholder="人员类别" id="id_category">
+          <option value="1">本科</option>
+
+          <option value="2">硕士</option>
+
+          <option value="3">博士</option>
+
+          <option value="0" selected>其他</option>
+
+        </select>
+      </div>
+
+
+      <div class="col-12-12 input-button">
+        <input type="submit" value="OK" />
+        <div class="ease"></div>
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>

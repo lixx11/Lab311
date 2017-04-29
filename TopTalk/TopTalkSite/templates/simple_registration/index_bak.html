@@ -1,0 +1,56 @@
+{% load static %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/simplegrid.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+  <!--<link rel="stylesheet" href="{% static 'css/formBetter.css' %}" />-->
+
+  <title></title>
+</head>
+
+<body>
+  <div class="grid grid-pad" id="form-wrapper">
+    <form method="post" action="index">
+      {% csrf_token %}
+      <div class="col-4-12 input-label">
+        <label for="{{ form.name.id_for_label }}">姓名:</label>
+      </div>
+      <div class="col-6-12 input-field">
+        {{ form.name }}
+      </div>
+      <div class="col-4-12 input-label">
+        <label for="{{ form.organization.id_for_label }}">工作单位:</label>
+      </div>
+      <div class="col-8-12 input-field">
+        {{ form.organization }}
+      </div>
+      <div class="col-4-12 input-label">
+        <label for="{{ form.phone_number.id_for_label }}">手机号:</label>
+      </div>
+      <div class="col-8-12 input-field">
+        {{ form.phone_number }}
+      </div>
+      <div class="col-4-12 input-label">
+        <label for="{{ form.email.id_for_label }}">邮箱:</label>
+      </div>
+      <div class="col-8-12 input-field">
+        {{ form.email }}
+      </div>
+      <div class="col-4-12 input-label">
+        <label for="{{ form.category.id_for_label }}">人员类别:</label>
+      </div>
+      <div class="col-8-12 input-field">
+        {{ form.category }}
+      </div>
+      <div class="col-12-12 input-button">
+        <input type="submit" value="OK" />
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
