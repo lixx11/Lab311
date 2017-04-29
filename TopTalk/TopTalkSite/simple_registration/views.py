@@ -8,6 +8,14 @@ from .forms import InfoForm
 
 # Create your views here.
 def index(request):
-    info_form = InfoForm()
-    context = {'form': info_form}
-    return render(request, 'index.html', context)
+    if request.method == 'GET':
+        form = InfoForm()
+        context = {'form': form}
+        return render(request, 'index.html', context)
+    else:
+        form = InfoForm(request.POST)
+        if form.is_valid():
+            info = form.save()
+            return HttpResponse('成功提交表单')
+        else:
+            return HttpResponse('表单错误！')

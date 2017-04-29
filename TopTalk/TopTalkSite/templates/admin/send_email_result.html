@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+    {% if result %}
+        alert("邮件发送成功")
+    {% else %}
+        alert("邮件发送失败！请联系网站管理员！")
+    {% endif %}
+    window.location = "{{ redirect_site }}"
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title></title>
+</head>
+
+<body>
+  <form method="post" action="index">
+    {% csrf_token %}
+    <div>
+      <label for="{{ form.name.id_for_label }}">姓名:</label> {{ form.name }}
+    </div>
+    <div>
+      <label for="{{ form.organization.id_for_label }}">工作单位:</label> {{ form.organization }}
+    </div>
+    <div>
+      <label for="{{ form.phone_number.id_for_label }}">手机号:</label> {{ form.phone_number }}
+    </div>
+    <div>
+      <label for="{{ form.email.id_for_label }}">邮箱:</label> {{ form.email }}
+    </div>
+    <div>
+      <label for="{{ form.category.id_for_label }}">人员类别:</label> {{ form.category }}
+    </div>
+    <div>
+      <input type="submit" value="OK" />
+    </div>
+  </form>
+</body>
+</html>

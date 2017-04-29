@@ -1,0 +1,104 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/static/css/email.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+<script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+<script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.min.js"></script>
+<script type="text/javascript">
+
+(function($) {
+    $(document).ready(function(){
+    $( ".deletelink" ).click(function() {
+              $( this ).parents('li').remove();
+        });
+    });
+})(django.jQuery);
+
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="/admin/simple_registration/">海外学者讲学</a>
+&rsaquo;  发送邮件
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+<!-- Content -->
+<div id="content" class="colM">
+    <h1>发送邮件</h1>
+    <div id="content-main">
+        <form enctype="multipart/form-data" action="send_email/" method="post" novalidate="">
+             {% csrf_token %}
+        <div>
+            <fieldset class="module  ">
+                <h2>邮箱设置</h2>
+                <div class='form-row'>
+                    <label for='id_email'>邮箱</label>
+                    <input class="vTextField" id="id_email" maxlength="128" name="email" type="text" value="" style="width:800">
+                    <br>
+                    <label for='id_passwd'>密码</label>
+                    <input class="vTextField" id="id_passwd" maxlength="128" name="passwd" type="password" value="" style="width:800">
+                </div>
+            </fieldset>
+
+            <fieldset class="module  ">
+                <h2>收件人</h2>
+                <div class="form-row field-receiver">
+                    <div>
+                        <ul class="receiver-list">
+                            {% for name, email, name_tag in recipient_list%}
+                            <li><div class="deletelink">
+                                <input type="hidden" name="{{ name_tag }}" value="{{ email }}">
+                                <span>{{ name|default:"匿名"}}</span>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="module aligned wide">
+                <h2>主题</h2>
+                <div class="form-row field-subject">
+                    <div>
+                        <input class="vTextField" id="id_subject" maxlength="128" name="subject" type="text" value="" style="width:1000px">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="module aligned wide">
+                <h2>正文</h2>
+                <div class="form-row field-content">
+                    <div>
+                        <textarea class="vLargeTextField" cols="40" id="id_content_text" name="email_content_text" rows="10" style="height:300px; width:1000px"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="submit-row">
+                <input type="submit" value="发送" class="default" name="_send">
+            </div>
+        </div>
+        </form>
+    </div>
+    <br class="clear">
+    <!-- END Content -->
+    <div id="footer"></div>
+</div>
+{% endblock %}
