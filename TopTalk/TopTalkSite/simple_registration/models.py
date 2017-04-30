@@ -45,6 +45,6 @@ class Info(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = '用户信息'
-        verbose_name_plural = '所有用户信息'
+        verbose_name = '报名信息'
+        verbose_name_plural = '所有报名信息'
         
