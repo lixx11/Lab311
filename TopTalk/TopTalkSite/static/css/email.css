@@ -1,0 +1,72 @@
+/* OBJECT TOOLS */
+
+.receiver-list {
+    font-size: 10px;
+    font-weight: bold;
+    padding-left: 0;
+    float: left;
+    position: relative;
+    margin-top: -48px;
+}
+
+.form-row .receiver-list {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float: none;
+    height: 2em;
+    padding-left: 0;
+}
+
+.receiver-list ul{
+    margin-left: 0;
+}
+
+.receiver-list li {
+    display: block;
+    float: left;
+    margin-left: 5px;
+    height: 2em;
+}
+
+.receiver-list div {
+    border-radius: 15px;
+    background: #999;
+    color: #fff;
+}
+
+/*.receiver-list div:link, .receiver-list div:visited {
+    display: block;
+    float: left;
+    padding: 3px 12px;
+    background: #999;
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+}*/
+
+.receiver-list div:focus, .receiver-list div:hover {
+    background-color: #417690;
+    cursor: pointer;
+}
+
+
+.receiver-list div.deletelink {
+    background-repeat: no-repeat;
+    background-position: 93% center;
+    padding-right: 26px;
+}
+
+/*.receiver-list a.viewsitelink, .receiver-list a.golink {
+    background-image: url(../img/tooltag-arrowright.svg);
+}
+
+.receiver-list a.addlink {
+    background-image: url(../img/tooltag-add.svg);
+}*/
+
+.receiver-list div.deletelink {
+    background-image: url(../img/inline-delete.svg);
+}
+/* OBJECT HISTORY */
