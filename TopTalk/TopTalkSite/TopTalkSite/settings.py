@@ -121,6 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ( os.path.join('static'), ) 
-# static files in 'Lab311/TopTalk/TopTalkSite/static', weihe
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "extra_static"),
+]
+# extra static files in 'Lab311/TopTalk/TopTalkSite/extra_static', xxli
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# static files for production in 'Lab311/TopTalk/TopTalkSite/static', xxli
