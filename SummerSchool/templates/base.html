@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta>
+    {% block meta %}{% endblock %}</meta>
+    <title>{% block title %}{% endblock %}</title>
+    {% block extrahead %}{% endblock %}
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/login.css"/>
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
+    </nav>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="footer fixed-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-info text-center">夏令营活动咨询：葛秀霞老师 010－62782677</div>
+            <div class="col-md-6 text-info text-center">网站技术支持：<a href="mailto:nmtzwh@sina.com">nmtzwh@sina.com</a></div>
+        </div>
+        <div class="row">
+            <div class="text-info text-center col-md">
+                请避免使用IE9以下的浏览器，及使用其内核的浏览器（如360浏览器）！推荐使用Firefox, Chrome, Opera, Edge等。
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'camper',
     'registration',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'SummerSchoolSite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'SummerSchoolSite/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +120,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+print(STATICFILES_DIRS)
 
 # django email
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
@@ -129,3 +134,4 @@ EMAIL_HOST_PASSWORD = 'LXX1530546985'
 
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = 'profile'

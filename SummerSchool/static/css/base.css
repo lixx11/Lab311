@@ -1,0 +1,16 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 100px;
+  padding-bottom: 200px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  line-height: 25px; /* Vertically center the text there */
+  background-color: rgb(35,35,35);
+}
