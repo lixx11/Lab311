@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name='用户', on_delete=models.PROTECT, primary_key=True)
     name = models.CharField(verbose_name='姓名', max_length=128, blank=True, null=True)
     school = models.CharField(verbose_name='学校', max_length=128, blank=True, null=True)
-    gender_choices = (('M', '男'), ('W', '女'))
+    gender_choices = (('男', '男'), ('女', '女'))
     gender = models.CharField(verbose_name='性别', choices=gender_choices, max_length=128, blank=True, null=True)
     age = models.IntegerField(verbose_name='年龄', blank=True, null=True)
     major = models.CharField(verbose_name='专业', max_length=128, blank=True, null=True)
@@ -24,7 +24,7 @@ class Profile(models.Model):
 
     # 志愿
     degree_choices = (('博士', '博士'), ('硕士', '硕士'))
-    institution_choices = (('工物系', '工物系'), ('核研院', '核研院'))
+    institute_choices = (('工物系', '工物系'), ('核研院', '核研院'))
     interest_choices = (('粒子物理实验', '粒子物理实验'), ('粒子物理理论', '粒子物理理论'), ('天体物理', '天体物理'),
                         ('核能科学与工程', '核能科学与工程'), ('裂变能科学与工程', '裂变能科学与工程'),
                         ('核聚变与等离子物理', '核聚变与等离子物理'), ('核燃料循环与材料', '核燃料循环与材料'),
@@ -34,9 +34,9 @@ class Profile(models.Model):
                                     null=True)
     second_degree = models.CharField(verbose_name='二志愿学位', choices=degree_choices, max_length=128, blank=True,
                                      null=True)
-    first_institution = models.CharField(verbose_name='一志愿单位', choices=institution_choices, max_length=128, blank=True,
+    first_institute = models.CharField(verbose_name='一志愿单位', choices=institute_choices, max_length=128, blank=True,
                                          null=True)
-    second_institution = models.CharField(verbose_name='二志愿单位', choices=institution_choices, max_length=128,
+    second_institute = models.CharField(verbose_name='二志愿单位', choices=institute_choices, max_length=128,
                                           blank=True, null=True)
     first_interest = models.CharField(verbose_name='一志愿方向', choices=interest_choices, max_length=128, blank=True,
                                       null=True)
