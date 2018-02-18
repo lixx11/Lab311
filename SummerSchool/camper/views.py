@@ -21,7 +21,7 @@ def submit_profile(request):
 
     if request.method == 'POST':
         profile = Profile.objects.get(user=user)
-        if profile.is_confirmed == 1:  # 如果确认，不再修改
+        if profile.is_confirmed == '是':  # 如果确认，不再修改
             return HttpResponse('申请表已确认，无法修改')
 
         form = ProfileForm(request.POST)
@@ -29,16 +29,11 @@ def submit_profile(request):
             profile = form.save(commit=False)
             profile.user = user
             update_fields = list(form.fields.keys())
-            if 'confirm' in request.POST:
-                profile.is_confirmed = 1
-            else:
-                profile.is_confirmed = 0
-            update_fields.append('is_confirmed')
             try:
                 profile.save(update_fields=update_fields)
             except:
                 profile.save()
-            context_dict = {'form': form}
+            context_dict = {'form': form, 'user': user}
             return render(request, 'camper/profile.html', context_dict)
         else:
             return HttpResponse(form.errors)
