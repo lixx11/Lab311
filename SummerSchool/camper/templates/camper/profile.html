@@ -1,9 +1,312 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post" action="">
+<main class="container">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="提交" />
-</form>
-<p>xxli</p>
+    <!--{{ form.as_p }}-->
+    <div class="row justify-content-center">
+        <div class="row col-md-9">
+            <div class="col-md-2 justify-content-center">
+                <a class="justify-content-center" href="#">
+                    <img id="sign-up" src="/static/img/fi-at-sign.svg" style="opacity: 1; width: 100%">
+                </a>
+                <h5 class="text-center">注册</h5>
+            </div>
+            <div class="col-md-2">
+                <img id="rigtharrow1" src="/static/img/fi-arrow-right.svg"
+                     style="opacity: 1.0;">
+            </div>
+            <div class="col-md-2">
+                <a href="#"><img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
+                                 data-target="#profileModal" style="opacity: 0.5; width: 100%"></a>
+                <h5 class="text-center">填表</h5>
+            </div>
+
+            <div class="col-md-2">
+                <a href="#"><img id="file-upload" src="/static/img/fi-folder-add.svg" data-toggle="modal"
+                                 data-target="#fileModal" style="opacity: 0.5; width: 100%"></a>
+                <h5 class="text-center">传文件</h5>
+            </div>
+            <div class="col-md-2">
+                <img id="rigtharrow2" src="/static/img/fi-arrow-right.svg" style="opacity: 0.5; width: 100%">
+            </div>
+            <div class="col-md-2">
+                <a href="#"><img id="wait-result" src="/static/img/fi-flag.svg" style="opacity: 0.5; width: 100%"></a>
+                <h5 class="text-center">等待结果</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="row col-md-12">
+            <h5>当前进度</h5>
+        </div>
+        <!--<img src="/static/img/atom.png" style="width: 100%; height: 50px">-->
+        <div class="row">
+            <div class="text-center">
+                您信息尚未提交，请点击填表图标完成报名信息。
+            </div>
+        </div>
+    </div>
+    <h5>报名信息</h5>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul style="list-style: none;">
+                        <li>专业排名：</li>
+                        <li>班级排名：</li>
+                        <li>英语水平：</li>
+                        <li>学位志愿：</li>
+                        <li>院系志愿：</li>
+                        <li>兴趣方向：</li>
+                        <li>服装大小：</li>
+                        <li>资助申请：</li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <ul style="list-style: none;">
+                        <li>专业排名</li>
+                        <li>班级排名</li>
+                        <li>英语水平</li>
+                        <li>学位志愿</li>
+                        <li>院系志愿</li>
+                        <li>兴趣方向</li>
+                        <li>服装大小</li>
+                        <li>资助申请</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
+                    <ul style="list-style: none;">
+                        <li>专业排名：</li>
+                        <li>班级排名：</li>
+                        <li>英语水平：</li>
+                        <li>志愿学位：</li>
+                        <li>志愿单位：</li>
+                        <li>兴趣：</li>
+                        <li>服装大小：</li>
+                        <li>资助申请：</li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <ul style="list-style: none;">
+                        <li>专业排名</li>
+                        <li>班级排名</li>
+                        <li>英语水平</li>
+                        <li>志愿学位</li>
+                        <li>志愿单位</li>
+                        <li>兴趣</li>
+                        <li>服装大小</li>
+                        <li>资助申请</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">报名信息</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group row align-items-center">
+                            <label for="name" class="col-form-label col-sm-3 text-right">姓名：</label>
+                            <input type="text" class="form-control col-sm-8 text-right" id="name">
+                        </div>
+                        <div class=" form-group row align-items-center">
+                            <label class="col-form-label col-sm-3 text-right">性别：</label>
+                            <div class="col-sm-1">
+                                <input type="radio" style="align: right" name="gender" value="1"
+                                       id="gender_man">
+                                <label for="gender_man" class="col-form-label">男</label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="radio" name="gender" value="2" id="gender_woman">
+                                <label for="gender_woman" class="col-form-label">女</label>
+                            </div>
+                            <label for="age" class="col-form-label col-sm-3 text-right">年龄：</label>
+                            <input type="number" class="form-control col-sm-3 text-right" id="age">
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="school" class="col-form-label col-sm-3 text-right">学校：</label>
+                            <input type="text" class="form-control col-sm-3 text-right" id="school">
+                            <label for="major" class="col-form-label col-sm-2 text-right">专业：</label>
+                            <input type="text" class="form-control col-sm-3 text-right" id="major">
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="id_number" class="col-form-label col-sm-3 text-right">身份证号：</label>
+                            <input type="text" class="form-control col-sm-3 text-right" id="id_number">
+                            <label for="phone_number" class="col-form-label col-sm-2 text-right">手机号：</label>
+                            <input type="text" class="form-control col-sm-3 text-right" id="phone_number">
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="form-group row align-items-center">
+                            <label for="major_rank" class="col-form-label col-sm-3 text-right">专业排名：</label>
+                            <input type="number" class="form-control col-sm-3 text-right" id="major_rank">
+                            <label for="major_number" class="col-form-label col-sm-2 text-right">专业人数：</label>
+                            <input type="number" class="form-control col-sm-3 text-right" id="major_number">
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="class_rank" class="col-form-label col-sm-3 text-right">班级排名：</label>
+                            <input type="number" class="form-control col-sm-3 text-right" id="class_rank">
+                            <label for="class_number" class="col-form-label col-sm-2 text-right">班级人数：</label>
+                            <input type="number" class="form-control col-sm-3 text-right" id="class_number">
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="english_level" class="col-form-label col-sm-3 text-right">英语水平：</label>
+                            <input type="text" class="form-control col-sm-8 text-right" id="english_level">
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="form-group row align-items-center">
+                            <label for="first_degree" class="col-form-label col-sm-3 text-right">一志愿学位：</label>
+                            <select class="form-control col-sm-3 text-right" id="first_degree" name="first_degree">
+                                <option value="" selected="selected">------------------------</option>
+                                <option value="博士">博士</option>
+                                <option value="硕士">硕士</option>
+                            </select>
+                            <label for="second_degree" class="col-form-label col-sm-2 text-right">二志愿学位：</label>
+                            <select class="form-control col-sm-3" id="second_degree" name="second_degree">
+                                <option class="text-right" value="" selected="selected">------------------------</option>
+                                <option class="text-right" value="博士">博士</option>
+                                <option class="text-right" value="硕士">硕士</option>
+                            </select>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="first_institution" class="col-form-label col-sm-3 text-right">一志愿院系：</label>
+                            <select class="form-control col-sm-3 text-right" id="first_institution"
+                                    name="first_institution">
+                                <option value="" selected="selected">------------------------</option>
+                                <option value="工物系">工物系</option>
+                                <option value="核研院">核研院</option>
+                            </select>
+                            <label for="second_institution" class="col-form-label col-sm-2 text-right">二志愿院系：</label>
+                            <select class="form-control col-sm-3 text-right" id="second_institution"
+                                    name="second_institution">
+                                <option value="" selected="selected">------------------------</option>
+                                <option value="工物系">工物系</option>
+                                <option value="核研院">核研院</option>
+                            </select>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label for="first_interest" class="col-form-label col-sm-3 text-right">一志愿兴趣：</label>
+                            <select class="form-control col-sm-3 text-right" id="first_interest" name="first_interest">
+                                <option value="" selected="selected">------------------------</option>
+                                <option value="粒子物理实验">粒子物理实验</option>
+                                <option value="粒子物理理论">粒子物理理论</option>
+                                <option value="天体物理">天体物理</option>
+                                <option value="核能科学与工程">核能科学与工程</option>
+                                <option value="裂变能科学与工程">裂变能科学与工程</option>
+                                <option value="6">核聚变与等离子物理</option>
+                                <option value="核聚变与等离子物理">核燃料循环与材料</option>
+                                <option value="核技术及应用">核技术及应用</option>
+                                <option value="辐射防护及环境保护">辐射防护及环境保护</option>
+                                <option value="医学物理与工程">医学物理与工程</option>
+                                <option value="安全科学与工程">安全科学与工程</option>
+                            </select>
+                            <label for="second_interest" class="col-form-label col-sm-2 text-right">二志愿兴趣：</label>
+                            <select class="form-control col-sm-3 text-right" id="second_interest"
+                                    name="second_interest">
+                                <option value="" selected="selected">------------------------</option>
+                                <option value="粒子物理实验">粒子物理实验</option>
+                                <option value="粒子物理理论">粒子物理理论</option>
+                                <option value="天体物理">天体物理</option>
+                                <option value="核能科学与工程">核能科学与工程</option>
+                                <option value="裂变能科学与工程">裂变能科学与工程</option>
+                                <option value="6">核聚变与等离子物理</option>
+                                <option value="核聚变与等离子物理">核燃料循环与材料</option>
+                                <option value="核技术及应用">核技术及应用</option>
+                                <option value="辐射防护及环境保护">辐射防护及环境保护</option>
+                                <option value="医学物理与工程">医学物理与工程</option>
+                                <option value="安全科学与工程">安全科学与工程</option>
+                            </select>
+                        </div>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="form-group row align-items-center">
+                            <label for="cloth_size" class="col-form-label col-sm-3 text-right">服装大小：</label>
+                            <select class="form-control col-sm-8 text-right" id="cloth_size" name="cloth_size">
+                                <option value="" selected="selected">
+                                    ---------------------------------------------------------------------
+                                </option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                <option value="XXXL">XXXL</option>
+                            </select>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-form-label col-sm-3 text-right">申请资助：</label>
+                            <input type="radio" name="fund_applied" value="是" id="fund_applied_NO">
+                            <label class="col-form-label col-sm-2" for="fund_applied_NO">是</label>
+                            <input type="radio" name="fund_applied" value="否" id="fund_applied_YES">
+                            <label class="col-form-label col-sm-2" for="fund_applied_YES">否</label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-3 text-right"
+                                   for="fund_application_text">资助申请理由：</label>
+                            <textarea class="col-sm-8" cols="40" id="fund_application_text" name="fund_application_text"
+                                      rows="1" disabled></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="fileModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileModalLabel">提交文件</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="from-group row">
+                            <label class="col-sm-3 text-right">个人陈述</label>
+                            <div class="col-sm-8">
+                                <label class="text-left">未提交</label>
+                                <input type="file" class="filestyle" id="personal_statement"
+                                       name="personal_statement" data-text="浏览...">
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="from-group row">
+                            <label class="col-sm-3 text-right">成绩单</label>
+                            <div class="col-sm-8">
+                                <label class="text-left">未提交</label>
+                                <input type="file" class="filestyle" id="school_report"
+                                       name="school_report" data-text="浏览...">
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="from-group row">
+                            <label class="col-sm-3 text-right">其他材料</label>
+                            <div class="col-sm-8">
+                                <label class="text-left">未提交</label>
+                                <input type="file" class="filestyle" id="other_material"
+                                       name="other_material" data-text="浏览...">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
 {% endblock %}

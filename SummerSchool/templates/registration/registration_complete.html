@@ -4,8 +4,12 @@
 {% block title %}{% trans "Activation email sent" %}{% endblock %}
 
 {% block content %}
-<p>{% trans "Please check your email to complete the registration process." %}</p>
-<p>xxli</p>
+<script>alert("Please check your email to complete the registration process.");
+    var url = window.location.href;
+    var arr = url.split("/");
+    var result = arr[0] + "//" + arr[2]
+    window.location.href = result;
+</script>
 {% endblock %}
 
 

@@ -45,5 +45,5 @@ def submit_profile(request):
     elif request.method == 'GET':
         profile = Profile.objects.get_or_create(user=user)[0]
         profile_form = ProfileForm(instance=profile)
-        context_dict = {'form': profile_form}
+        context_dict = {'form': profile_form, 'user': user}
         return render(request, 'camper/profile.html', context_dict)

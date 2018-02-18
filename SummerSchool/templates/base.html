@@ -13,8 +13,13 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
         <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
+        {% if user.username %}
+        <div class="text-info">
+            欢迎{{ form.name.value|default_if_none:"同学" }}，<a href="/accounts/logout/?next=/" class="button ">退出</a>
+        </div>
+        {% endif %}
     </nav>
 </header>
 
@@ -23,8 +28,9 @@
 <footer class="footer fixed-bottom">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 text-info text-center">夏令营活动咨询：葛秀霞老师 010－62782677</div>
-            <div class="col-md-6 text-info text-center">网站技术支持：<a href="mailto:nmtzwh@sina.com">nmtzwh@sina.com</a></div>
+            <div class="col-md-6 text-info text-center">夏令营活动咨询：010－62782677（葛老师）</div>
+            <div class="col-md-6 text-info text-center">网站技术支持：<a href="mailto:nmtzwh@sina.com">nmtzwh@sina.com</a>
+            </div>
         </div>
         <div class="row">
             <div class="text-info text-center col-md">
@@ -42,5 +48,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="/static/js/bootstrap-filestyle.min.js"></script>
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
 </body>
 </html>

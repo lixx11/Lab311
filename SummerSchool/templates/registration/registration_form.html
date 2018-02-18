@@ -2,24 +2,51 @@
 {% load i18n %}
 
 {% block content %}
-<form method="post" action="">
-    {% csrf_token %}
-    <!--check error-->
-    {% if form.errors %}
+<main role="main" class="container col-md-4">
+    <form method="post" action="">
+        {% csrf_token %}
+        {% if form.errors %}
         {% for field in form %}
-          {% if field.errors %}
-            {% for error in field.errors %}
-                <script>alert("{{ error }}")</script>
-            {% endfor %}
-          {% endif %}
+        {% if field.errors %}
+        {% for error in field.errors %}
+        <script>alert("{{ error }}")</script>
         {% endfor %}
-    <p>error</p>
-    {% endif %}
-    <p class="required"><label class="required" for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autofocus required id="id_username" /> <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
-    <p class="required"><label class="required" for="id_email">E-mail:</label> <input type="email" name="email" required id="id_email" /></p>
-    <p class="required"><label class="required" for="id_password1">Password:</label> <input type="password" name="password1" required id="id_password1" /> <span class="helptext"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Your password can&#39;t be entirely numeric.</li></ul></span></p>
-    <p class="required"><label class="required" for="id_password2">Password confirmation:</label> <input type="password" name="password2" required id="id_password2" /> <span class="helptext">Enter the same password as before, for verification.</span></p>
-    <input type="submit" value="{% trans 'Submit' %}" />
-</form>
-<p>xxli</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <div class="form-group row">
+            <img src="/static/img/atom.png" style="width: 30%; height: 30%" class="rounded d-block mx-auto">
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <input type="text" class="form-control" id="username" name="username" placeholder="用户名"
+                       data-toggle="tooltip" title="字母和数字组合" data-placement="right" required autofocus>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <input type="email" class="form-control" id="email" name="email" placeholder="邮箱"
+                       data-toggle="tooltip" title="请使用常用邮箱" data-placement="right" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <input type="password" class="form-control" id="password1" name="password1" placeholder="密码"
+                       data-toggle="tooltip" title="最少8个字符，不能全是数字" data-placement="right" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="再次输入密码"
+                       data-toggle="tooltip" title="再次输入密码" data-placement="right"  required>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-block" type="submit">注册</button>
+            </div>
+        </div>
+    </form>
+</main>
+
 {% endblock %}

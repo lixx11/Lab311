@@ -4,13 +4,12 @@
 {% block title %}{% trans "Account Activated" %}{% endblock %}
 
 {% block content %}
-<p>
-    {% trans "Your account is now activated." %}
-    {% if not user.is_authenticated %}
-    {% trans "You can log in." %}
-    {% endif %}
-</p>
-<p>xxli</p>
+<script>alert("Your account is now activated.");
+    var url = window.location.href;
+    var arr = url.split("/");
+    var result = arr[0] + "//" + arr[2]
+    window.location.href = result;
+</script>
 {% endblock %}
 
 
