@@ -16,17 +16,25 @@
                 </div>
                 <div class="col-md-2">
                     <a href="#"><img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
-                                     data-target="#profileModal" style="opacity: 0.5; width: 100%"></a>
+                                     data-target="#profileModal"
+                                     style="opacity: {% if profile_form.is_confirmed.value == '是' %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
                     <h5 class="text-center">填表</h5>
                 </div>
 
                 <div class="col-md-2">
                     <a href="#"><img id="file-upload" src="/static/img/fi-folder-add.svg" data-toggle="modal"
-                                     data-target="#fileModal" style="opacity: 0.5; width: 100%"></a>
+                                     data-target="#fileModal"
+                                     style="opacity: {% if file_upload_form.personal_statement.value and file_upload_form.school_report.value %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
                     <h5 class="text-center">传文件</h5>
                 </div>
                 <div class="col-md-2">
-                    <img id="rigtharrow2" src="/static/img/fi-arrow-right.svg" style="opacity: 0.5; width: 100%">
+                    <img id="rigtharrow2" src="/static/img/fi-arrow-right.svg"
+                         style="opacity:
+                                 {% if profile_form.is_confirmed.value == '是' and file_upload_form.personal_statement.value and file_upload_form.school_report.value %}
+                                     1.0
+                                 {% else %}
+                                     0.5
+                                 {% endif %}; width: 100%">
                 </div>
                 <div class="col-md-2">
                     <a href="#"><img id="wait-result" src="/static/img/fi-flag.svg"
@@ -38,8 +46,17 @@
         <h5 style="padding: 5px">当前进度</h5>
         <div class="row justify-content-center" style="padding: 10px">
             <div class="row">
-                <div class="text-center">
-                    您信息尚未提交，请点击填表图标完成报名信息。
+                <div id="notification" class="text-center">
+                    {% if profile_form.is_confirmed.value != '是' %}
+                        您信息尚未提交，请点击填表图标完成报名信息。
+                    {% elif not file_upload_form.personal_statement.value %}
+                        您个人陈述文件未上传，请点击传文件图标上传相关文件。
+                    {% elif not file_upload_form.school_report.value %}
+                        您成绩单尚未上传，请点击传文件图标上传相关文件。
+                    {% else %}
+                        报名信息与相关文件已成功提交，请等候审核结果通知。
+                        <small>(在报名截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -61,14 +78,14 @@
                     </div>
                     <div class="col-md-8">
                         <ul class="list-group" style="list-style: none;">
-                            <li>{{ form.name.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ form.gender.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ form.age.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ form.school.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ form.major.value|default_if_none:'未填'|default:'未填' }}</li>
+                            <li>{{ profile_form.name.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>{{ profile_form.gender.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>{{ profile_form.age.value|default_if_none:'未填'|default:'未填' }}</li>
+                            <li>{{ profile_form.school.value|default_if_none:'未填'|default:'未填' }}</li>
+                            <li>{{ profile_form.major.value|default_if_none:'未填'|default:'未填' }}</li>
                             <li>{{ user.email|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ form.phone_number.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ form.id_number.value|default_if_none:'未填'|default:'未填' }}</li>
+                            <li>{{ profile_form.phone_number.value|default_if_none:'未填'|default:'未填' }}</li>
+                            <li>{{ profile_form.id_number.value|default_if_none:'未填'|default:'未填' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -89,19 +106,19 @@
                     </div>
                     <div class="col-md-8">
                         <ul class="list-group" style="list-style: none;">
-                            <li>{{ form.major_rank.value|default_if_none:"未填"|default:'未填' }}/{{ form.major_number.value|default_if_none:"未填"|default:'未填' }}
+                            <li>{{ profile_form.major_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.major_number.value|default_if_none:"未填"|default:'未填' }}
                             </li>
-                            <li>{{ form.class_rank.value|default_if_none:"未填"|default:'未填' }}/{{ form.class_number.value|default_if_none:"未填"|default:'未填' }}
+                            <li>{{ profile_form.class_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.class_number.value|default_if_none:"未填"|default:'未填' }}
                             </li>
-                            <li>{{ form.english_level.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ form.first_degree.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ form.second_degree.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ form.first_institute.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ form.first_interest.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ form.second_interest.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>{{ profile_form.english_level.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>1-{{ profile_form.first_degree.value|default_if_none:"未填"|default:'未填' }};
+                                2-{{ profile_form.second_degree.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>1-{{ profile_form.first_institute.value|default_if_none:"未填"|default:'未填' }};
+                                2-{{ profile_form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填' }};
+                                2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>{{ profile_form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
+                            <li>{{ profile_form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
                         </ul>
                     </div>
                 </div>
@@ -113,105 +130,108 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="profileModalLabel">报名信息{% ifequal form.is_confirmed.value '是' %}
+                        <h5 class="modal-title" id="profileModalLabel">报名信息{% if form.is_confirmed.value == '是' %}
                             （已提交，无法修改）
-                        {% endifequal %}</h5>
+                        {% endif %}</h5>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="" id="profile_form">
+                        <form method="post" action="/profile/" id="profile_form">
                             {% csrf_token %}
                             <div class="form-group row align-items-center">
                                 <label for="name" class="col-form-label col-sm-3 text-right">姓名：</label>
                                 <input type="text" class="form-control col-sm-8 text-right" id="name" name="name"
-                                       value='{{ form.name.value|default_if_none:"" }}'>
+                                       value='{{ profile_form.name.value|default_if_none:"" }}'>
                             </div>
                             <div class=" form-group row align-items-center">
                                 <label class="col-form-label col-sm-3 text-right">性别：</label>
                                 <div class="col-sm-1">
                                     <input type="radio" name="gender" value="男" id="gender_man"
-                                            {% ifequal form.gender.value '男' %}
+                                            {% if profile_form.gender.value == '男' %}
                                            checked
-                                            {% endifequal %}>
+                                            {% endif %}>
                                     <label for="gender_man" class="col-form-label">男</label>
                                 </div>
                                 <div class="col-sm-1">
                                     <input type="radio" name="gender" value="女" id="gender_woman"
-                                            {% ifequal form.gender.value '女' %} checked {% endifequal %}>
+                                            {% if profile_form.gender.value == '女' %} checked {% endif %}>
                                     <label for="gender_woman" class="col-form-label">女</label>
                                 </div>
                                 <label for="age" class="col-form-label col-sm-3 text-right">年龄：</label>
                                 <input type="number" class="form-control col-sm-3 text-right" id="age" name="age"
-                                       value="{{ form.age.value|default_if_none:'' }}">
+                                       value="{{ profile_form.age.value|default_if_none:'' }}">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="school" class="col-form-label col-sm-3 text-right">学校：</label>
                                 <input type="text" class="form-control col-sm-3 text-right" id="school" name="school"
-                                       value="{{ form.school.value|default_if_none:'' }}">
+                                       value="{{ profile_form.school.value|default_if_none:'' }}">
                                 <label for="major" class="col-form-label col-sm-2 text-right">专业：</label>
                                 <input type="text" class="form-control col-sm-3 text-right" id="major" name="major"
-                                       value="{{ form.major.value|default_if_none:'' }}">
+                                       value="{{ profile_form.major.value|default_if_none:'' }}">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="id_number" class="col-form-label col-sm-3 text-right">身份证号：</label>
                                 <input type="text" class="form-control col-sm-3 text-right" id="id_number"
                                        name="id_number"
-                                       value="{{ form.id_number.value|default_if_none:'' }}">
+                                       value="{{ profile_form.id_number.value|default_if_none:'' }}">
                                 <label for="phone_number" class="col-form-label col-sm-2 text-right">手机号：</label>
                                 <input type="text" class="form-control col-sm-3 text-right" id="phone_number"
-                                       name="phone_number" value="{{ form.phone_number.value|default_if_none:'' }}">
+                                       name="phone_number"
+                                       value="{{ profile_form.phone_number.value|default_if_none:'' }}">
                             </div>
                             <div class="dropdown-divider"></div>
 
                             <div class="form-group row align-items-center">
                                 <label for="major_rank" class="col-form-label col-sm-3 text-right">专业排名：</label>
                                 <input type="number" class="form-control col-sm-3 text-right" id="major_rank"
-                                       name="major_rank" value="{{ form.major_rank.value|default:'' }}">
+                                       name="major_rank" value="{{ profile_form.major_rank.value|default:'' }}">
                                 <label for="major_number" class="col-form-label col-sm-2 text-right">专业人数：</label>
                                 <input type="number" class="form-control col-sm-3 text-right" id="major_number"
-                                       name="major_number" value="{{ form.major_number.value|default:'' }}">
+                                       name="major_number" value="{{ profile_form.major_number.value|default:'' }}">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="class_rank" class="col-form-label col-sm-3 text-right">班级排名：</label>
                                 <input type="number" class="form-control col-sm-3 text-right" id="class_rank"
-                                       name="class_rank" value="{{ form.class_rank.value|default:'' }}">
+                                       name="class_rank" value="{{ profile_form.class_rank.value|default:'' }}">
                                 <label for="class_number" class="col-form-label col-sm-2 text-right">班级人数：</label>
                                 <input type="number" class="form-control col-sm-3 text-right" id="class_number"
-                                       name="class_number" value="{{ form.class_number.value|default:'' }}">
+                                       name="class_number" value="{{ profile_form.class_number.value|default:'' }}">
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="english_level" class="col-form-label col-sm-3 text-right">英语水平：</label>
                                 <input type="text" class="form-control col-sm-8 text-right" id="english_level"
-                                       name="english_level" value="{{ form.english_level.value|default:'' }}">
+                                       name="english_level" value="{{ profile_form.english_level.value|default:'' }}">
                             </div>
                             <div class="dropdown-divider"></div>
 
                             <div class="form-group row align-items-center">
                                 <label for="first_degree" class="col-form-label col-sm-3 text-right">一志愿学位：</label>
                                 <select class="form-control col-sm-3 text-right" id="first_degree" name="first_degree">
-                                    <option value="" {% if not form.first_degree.value %}
+                                    <option value="" {% if not profile_form.first_degree.value %}
                                             selected
                                     {% endif %}>------------------------
                                     </option>
-                                    <option value="博士" {% ifequal form.first_degree.value '博士' %}
+                                    <option value="博士" {% if profile_form.first_degree.value == '博士' %}
                                             selected
-                                    {% endifequal %}>博士
+                                    {% endif %}>博士
                                     </option>
-                                    <option value="硕士" {% ifequal form.first_degree.value '硕士' %}
+                                    <option value="硕士" {% if profile_form.first_degree.value == '硕士' %}
                                             selected
-                                    {% endifequal %}>硕士
+                                    {% endif %}>硕士
                                     </option>
                                 </select>
                                 <label for="second_degree" class="col-form-label col-sm-2 text-right">二志愿学位：</label>
                                 <select class="form-control col-sm-3" id="second_degree" name="second_degree">
                                     <option class="text-right" value="">------------------------
                                     </option>
-                                    <option class="text-right" value="博士" {% ifequal form.second_degree.value '博士' %}
+                                    <option class="text-right" value="博士"
+                                            {% if profile_form.second_degree.value == '博士' %}
                                             selected
-                                    {% endifequal %}>博士
+                                            {% endif %}>博士
                                     </option>
-                                    <option class="text-right" value="硕士" {% ifequal form.second_degree.value '硕士' %}
+                                    <option class="text-right" value="硕士"
+                                            {% if profile_form.second_degree.value == '硕士' %}
                                             selected
-                                    {% endifequal %}>硕士
+                                            {% endif %}>硕士
                                     </option>
                                 </select>
                             </div>
@@ -220,26 +240,26 @@
                                 <select class="form-control col-sm-3 text-right" id="first_institute"
                                         name="first_institute">
                                     <option value="">------------------------</option>
-                                    <option value="工物系" {% ifequal form.first_institute.value '工物系' %}
+                                    <option value="工物系" {% if profile_form.first_institute.value == '工物系' %}
                                             selected
-                                    {% endifequal %}>工物系
+                                    {% endif %}>工物系
                                     </option>
-                                    <option value="核研院" {% ifequal form.first_institute.value '核研院' %}
+                                    <option value="核研院" {% if profile_form.first_institute.value == '核研院' %}
                                             selected
-                                    {% endifequal %}>核研院
+                                    {% endif %}>核研院
                                     </option>
                                 </select>
                                 <label for="second_institute" class="col-form-label col-sm-2 text-right">二志愿院系：</label>
                                 <select class="form-control col-sm-3 text-right" id="second_institute"
                                         name="second_institute">
                                     <option value="" selected="selected">------------------------</option>
-                                    <option value="工物系" {% ifequal form.second_institute.value '工物系' %}
+                                    <option value="工物系" {% if profile_form.second_institute.value == '工物系' %}
                                             selected
-                                    {% endifequal %}>工物系
+                                    {% endif %}>工物系
                                     </option>
-                                    <option value="核研院" {% ifequal form.second_institute.value '核研院' %}
+                                    <option value="核研院" {% if profile_form.second_institute.value == '核研院' %}
                                             selected
-                                    {% endifequal %}>核研院
+                                    {% endif %}>核研院
                                     </option>
                                 </select>
                             </div>
@@ -248,98 +268,104 @@
                                 <select class="form-control col-sm-3 text-right" id="first_interest"
                                         name="first_interest">
                                     <option value="">------------------------</option>
-                                    <option value="粒子物理实验" {% ifequal form.first_interest.value '粒子物理实验' %}
+                                    <option value="粒子物理实验" {% if profile_form.first_interest.value == '粒子物理实验' %}
                                             selected
-                                    {% endifequal %}>粒子物理实验
+                                    {% endif %}>粒子物理实验
                                     </option>
-                                    <option value="粒子物理理论" {% ifequal form.first_interest.value '粒子物理理论' %}
+                                    <option value="粒子物理理论" {% if profile_form.first_interest.value == '粒子物理理论' %}
                                             selected
-                                    {% endifequal %}>粒子物理理论
+                                    {% endif %}>粒子物理理论
                                     </option>
-                                    <option value="天体物理" {% ifequal form.first_interest.value '天体物理' %}
+                                    <option value="天体物理" {% if profile_form.first_interest.value == '天体物理' %}
                                             selected
-                                    {% endifequal %}>天体物理
+                                    {% endif %}>天体物理
                                     </option>
-                                    <option value="核能科学与工程" {% ifequal form.first_interest.value '核能科学与工程' %}
+                                    <option value="核能科学与工程" {% if profile_form.first_interest.value == '核能科学与工程' %}
                                             selected
-                                    {% endifequal %}>核能科学与工程
+                                    {% endif %}>核能科学与工程
                                     </option>
-                                    <option value="裂变能科学与工程" {% ifequal form.first_interest.value '裂变能科学与工程' %}
+                                    <option value="裂变能科学与工程" {% if profile_form.first_interest.value == '裂变能科学与工程' %}
                                             selected
-                                    {% endifequal %}>裂变能科学与工程
+                                    {% endif %}>裂变能科学与工程
                                     </option>
-                                    <option value="核聚变与等离子物理" {% ifequal form.first_interest.value '核聚变与等离子物理' %}
+                                    <option value="核聚变与等离子物理"
+                                            {% if profile_form.first_interest.value == '核聚变与等离子物理' %}
                                             selected
-                                    {% endifequal %}>核聚变与等离子物理
+                                            {% endif %}>核聚变与等离子物理
                                     </option>
-                                    <option value="核聚变与等离子物理" {% ifequal form.first_interest.value '核聚变与等离子物理' %}
+                                    <option value="核聚变与等离子物理"
+                                            {% if profile_form.first_interest.value == '核聚变与等离子物理' %}
                                             selected
-                                    {% endifequal %}>核燃料循环与材料
+                                            {% endif %}>核燃料循环与材料
                                     </option>
-                                    <option value="核技术及应用" {% ifequal form.first_interest.value '核技术及应用' %}
+                                    <option value="核技术及应用" {% if profile_form.first_interest.value == '核技术及应用' %}
                                             selected
-                                    {% endifequal %}>核技术及应用
+                                    {% endif %}>核技术及应用
                                     </option>
-                                    <option value="辐射防护及环境保护" {% ifequal form.first_interest.value '辐射防护及环境保护' %}
+                                    <option value="辐射防护及环境保护"
+                                            {% if profile_form.first_interest.value == '辐射防护及环境保护' %}
                                             selected
-                                    {% endifequal %}>辐射防护及环境保护
+                                            {% endif %}>辐射防护及环境保护
                                     </option>
-                                    <option value="医学物理与工程" {% ifequal form.first_interest.value '医学物理与工程' %}
+                                    <option value="医学物理与工程" {% if profile_form.first_interest.value == '医学物理与工程' %}
                                             selected
-                                    {% endifequal %}>医学物理与工程
+                                    {% endif %}>医学物理与工程
                                     </option>
-                                    <option value="安全科学与工程" {% ifequal form.first_interest.value '安全科学与工程' %}
+                                    <option value="安全科学与工程" {% if profile_form.first_interest.value == '安全科学与工程' %}
                                             selected
-                                    {% endifequal %}>安全科学与工程
+                                    {% endif %}>安全科学与工程
                                     </option>
                                 </select>
                                 <label for="second_interest" class="col-form-label col-sm-2 text-right">二志愿方向：</label>
                                 <select class="form-control col-sm-3 text-right" id="second_interest"
                                         name="second_interest">
                                     <option value="">------------------------</option>
-                                    <option value="粒子物理实验" {% ifequal form.second_interest.value '粒子物理实验' %}
+                                    <option value="粒子物理实验" {% if profile_form.second_interest.value == '粒子物理实验' %}
                                             selected
-                                    {% endifequal %}>粒子物理实验
+                                    {% endif %}>粒子物理实验
                                     </option>
-                                    <option value="粒子物理理论" {% ifequal form.second_interest.value '粒子物理理论' %}
+                                    <option value="粒子物理理论" {% if profile_form.second_interest.value == '粒子物理理论' %}
                                             selected
-                                    {% endifequal %}>粒子物理理论
+                                    {% endif %}>粒子物理理论
                                     </option>
-                                    <option value="天体物理" {% ifequal form.second_interest.value '天体物理' %}
+                                    <option value="天体物理" {% if profile_form.second_interest.value == '天体物理' %}
                                             selected
-                                    {% endifequal %}>天体物理
+                                    {% endif %}>天体物理
                                     </option>
-                                    <option value="核能科学与工程" {% ifequal form.second_interest.value '核能科学与工程' %}
+                                    <option value="核能科学与工程" {% if profile_form.second_interest.value == '核能科学与工程' %}
                                             selected
-                                    {% endifequal %}>核能科学与工程
+                                    {% endif %}>核能科学与工程
                                     </option>
-                                    <option value="裂变能科学与工程" {% ifequal form.second_interest.value '裂变能科学与工程' %}
+                                    <option value="裂变能科学与工程" {% if profile_form.second_interest.value == '裂变能科学与工程' %}
                                             selected
-                                    {% endifequal %}>裂变能科学与工程
+                                    {% endif %}>裂变能科学与工程
                                     </option>
-                                    <option value="核聚变与等离子物理" {% ifequal form.second_interest.value '核聚变与等离子物理' %}
+                                    <option value="核聚变与等离子物理"
+                                            {% if profile_form.second_interest.value == '核聚变与等离子物理' %}
                                             selected
-                                    {% endifequal %}>核聚变与等离子物理
+                                            {% endif %}>核聚变与等离子物理
                                     </option>
-                                    <option value="核聚变与等离子物理" {% ifequal form.second_interest.value '核聚变与等离子物理' %}
+                                    <option value="核聚变与等离子物理"
+                                            {% if profile_form.second_interest.value == '核聚变与等离子物理' %}
                                             selected
-                                    {% endifequal %}>核燃料循环与材料
+                                            {% endif %}>核燃料循环与材料
                                     </option>
-                                    <option value="核技术及应用" {% ifequal form.second_interest.value '核技术及应用' %}
+                                    <option value="核技术及应用" {% if profile_form.second_interest.value == '核技术及应用' %}
                                             selected
-                                    {% endifequal %}>核技术及应用
+                                    {% endif %}>核技术及应用
                                     </option>
-                                    <option value="辐射防护及环境保护" {% ifequal form.second_interest.value '辐射防护及环境保护' %}
+                                    <option value="辐射防护及环境保护"
+                                            {% if profile_form.second_interest.value == '辐射防护及环境保护' %}
                                             selected
-                                    {% endifequal %}>辐射防护及环境保护
+                                            {% endif %}>辐射防护及环境保护
                                     </option>
-                                    <option value="医学物理与工程" {% ifequal form.second_interest.value '医学物理与工程' %}
+                                    <option value="医学物理与工程" {% if profile_form.second_interest.value == '医学物理与工程' %}
                                             selected
-                                    {% endifequal %}>医学物理与工程
+                                    {% endif %}>医学物理与工程
                                     </option>
-                                    <option value="安全科学与工程" {% ifequal form.second_interest.value '安全科学与工程' %}
+                                    <option value="安全科学与工程" {% if profile_form.second_interest.value == '安全科学与工程' %}
                                             selected
-                                    {% endifequal %}>安全科学与工程
+                                    {% endif %}>安全科学与工程
                                     </option>
                                 </select>
                             </div>
@@ -351,29 +377,29 @@
                                     <option value="">
                                         ---------------------------------------------------------------------
                                     </option>
-                                    <option value="S" {% ifequal form.cloth_size.value 'S' %}
+                                    <option value="S" {% if profile_form.cloth_size.value == 'S' %}
                                             selected
-                                    {% endifequal %}>S
+                                    {% endif %}>S
                                     </option>
-                                    <option value="M" {% ifequal form.cloth_size.value 'M' %}
+                                    <option value="M" {% if profile_form.cloth_size.value == 'M' %}
                                             selected
-                                    {% endifequal %}>M
+                                    {% endif %}>M
                                     </option>
-                                    <option value="L" {% ifequal form.cloth_size.value 'L' %}
+                                    <option value="L" {% if profile_form.cloth_size.value == 'L' %}
                                             selected
-                                    {% endifequal %}>L
+                                    {% endif %}>L
                                     </option>
-                                    <option value="XL" {% ifequal form.cloth_size.value 'XL' %}
+                                    <option value="XL" {% if profile_form.cloth_size.value == 'XL' %}
                                             selected
-                                    {% endifequal %}>XL
+                                    {% endif %}>XL
                                     </option>
-                                    <option value="XXL" {% ifequal form.cloth_size.value 'XXL' %}
+                                    <option value="XXL" {% if profile_form.cloth_size.value == 'XXL' %}
                                             selected
-                                    {% endifequal %}>XXL
+                                    {% endif %}>XXL
                                     </option>
-                                    <option value="XXXL" {% ifequal form.cloth_size.value 'XXXL' %}
+                                    <option value="XXXL" {% if profile_form.cloth_size.value == 'XXXL' %}
                                             selected
-                                    {% endifequal %}>XXXL
+                                    {% endif %}>XXXL
                                     </option>
                                 </select>
                             </div>
@@ -381,16 +407,16 @@
                                 <label class="col-form-label col-sm-3 text-right">申请资助：</label>
                                 <div class="col-sm-1">
                                     <input type="radio" name="fund_applied" value="是" id="fund_applied_NO"
-                                            {% ifequal form.fund_applied.value '是' %}
+                                            {% if profile_form.fund_applied.value == '是' %}
                                            checked
-                                            {% endifequal %}>
+                                            {% endif %}>
                                     <label class="col-form-label" for="fund_applied_NO">是</label>
                                 </div>
                                 <div class="col-sm-1">
                                     <input type="radio" name="fund_applied" value="否" id="fund_applied_YES"
-                                            {% ifequal form.fund_applied.value '否' %}
+                                            {% if profile_form.fund_applied.value == '否' %}
                                            checked
-                                            {% endifequal %}>
+                                            {% endif %}>
                                     <label class="col-form-label" for="fund_applied_YES">否</label>
                                 </div>
                             </div>
@@ -399,9 +425,9 @@
                                        for="fund_application_text">资助申请理由：</label>
                                 <textarea class="col-sm-8" cols="40" id="fund_application_text"
                                           name="fund_application_text"
-                                          rows="1"  {% ifequal form.fund_applied.value '否' %}
+                                          rows="1"  {% if profile_form.fund_applied.value == '否' %}
                                           disabled
-                                {% endifequal %}></textarea>
+                                {% endif %}></textarea>
                             </div>
                             <div class="dropdown-divider"></div>
 
@@ -409,14 +435,15 @@
                                 <label class="col-form-label col-sm-3 text-right"
                                        for="is_confirmed"><b>最终确认：</b></label>
                                 <input type="checkbox" id="is_confirmed" name="is_confirmed"
-                                       value="{{ form.is_confirmed.value }}" {% ifequal form.is_confirmed.value '是' %}
-                                       checked {% endifequal %}>
+                                       value="{{ form.is_confirmed.value }}"
+                                        {% if profile_form.is_confirmed.value == '是' %}
+                                       checked {% endif %}>
                             </div>
-                            {% ifnotequal form.is_confirmed.value '是' %}
+                            {% if profile_form.is_confirmed.value != '是' %}
                                 <div class="modal-footer justify-content-center">
                                     <button type="submit" id="profile_btn" class="btn btn-primary">暂存</button>
                                 </div>
-                            {% endifnotequal %}
+                            {% endif %}
                         </form>
                     </div>
                 </div>
@@ -430,11 +457,12 @@
                         <h5 class="modal-title" id="fileModalLabel">提交文件</h5>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="post" action="/upload/" enctype="multipart/form-data">
+                            {% csrf_token %}
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">个人陈述</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">未提交</label>
+                                    <label class="text-left">{{ file_upload_form.personal_statement.value|default_if_none:'未提交' }}</label>
                                     <input type="file" class="filestyle" id="personal_statement"
                                            name="personal_statement" data-text="浏览...">
                                 </div>
@@ -443,7 +471,7 @@
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">成绩单</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">未提交</label>
+                                    <label class="text-left">{{ file_upload_form.school_report.value|default_if_none:'未提交' }}</label>
                                     <input type="file" class="filestyle" id="school_report"
                                            name="school_report" data-text="浏览...">
                                 </div>
@@ -452,15 +480,15 @@
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">其他材料</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">未提交</label>
+                                    <label class="text-left">{{ file_upload_form.other_material.value|default_if_none:'未提交' }}</label>
                                     <input type="file" class="filestyle" id="other_material"
                                            name="other_material" data-text="浏览...">
                                 </div>
                             </div>
+                            <div class="modal-footer justify-content-center">
+                                <button type="submit" id="upload_btn" class="btn btn-primary">提交</button>
+                            </div>
                         </form>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -482,16 +510,23 @@
     $('#is_confirmed').change(function() {
     if (this.checked) {
     $('#profile_btn').html('提交');
-    $('$is_confirmed').prop('value', '是');
+    $('#is_confirmed').prop('value', '是');
     }
     else {
     $('#profile_btn').html('暂存');
-    $('$is_confirmed').prop('value', '否');
+    $('#is_confirmed').prop('value', '否');
     }
     });
 
-    if ($('#is_confirmed').is(':checked')) {
-    $("#profile_form :input").prop("disabled", true);
+    if ('{{ profile_form.is_confirmed.value }}' == '是') {
+    $('#profile_form :input').prop('disabled', true);
     };
     });
+
+    $('#is_confirmed').change(function () {
+    if (this.checked) {
+    $('#profile_form :input').prop('required', true);
+    }
+    });
+
 {% endblock %}

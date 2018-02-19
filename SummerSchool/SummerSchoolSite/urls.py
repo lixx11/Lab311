@@ -20,7 +20,8 @@ from camper import views
 
 urlpatterns = [
     path('', views.index),
-    path('profile', views.submit_profile, name='profile'),
+    path('profile/', views.submit_profile, name='profile'),
+    path('upload/', views.submit_files, name='upload'),
     path('accounts/', include('registration.backends.default.urls')),
     path('admin/', admin.site.urls),
 ]

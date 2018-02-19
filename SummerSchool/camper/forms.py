@@ -7,3 +7,9 @@ class ProfileForm(ModelForm):
         model = Profile
         exclude = ['user', 'personal_statement', 'school_report', 'other_material', 'check_status', 'fund_status',
                    'dep_check_status', 'inet_check_status', 'dep_retest_grade', 'inet_retest_grade']
+
+
+class FileUploadForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['personal_statement', 'school_report', 'other_material']

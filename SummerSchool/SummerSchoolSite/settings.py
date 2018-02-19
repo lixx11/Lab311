@@ -125,6 +125,10 @@ STATICFILES_DIRS = [
 ]
 print(STATICFILES_DIRS)
 
+# media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # django email
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

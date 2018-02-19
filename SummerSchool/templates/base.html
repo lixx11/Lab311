@@ -14,9 +14,9 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
         <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
-        {% if user.username %}
+        {% if profile_form.name.value %}
             <div class="text-info">
-                欢迎{{ form.name.value|default_if_none:"同学" }}，<a href="/accounts/logout/?next=/" class="button ">退出</a>
+                欢迎{{ profile_form.name.value|default_if_none:"同学" }}，<a href="/accounts/logout/?next=/" class="button ">退出</a>
             </div>
         {% endif %}
     </nav>

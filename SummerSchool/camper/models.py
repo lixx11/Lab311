@@ -51,9 +51,9 @@ class Profile(models.Model):
     cloth_size = models.CharField(verbose_name='服装大小', choices=cloth_choices, max_length=128, blank=True, null=True)
 
     # 文件
-    personal_statement = models.FileField(verbose_name='个人陈述', upload_to='upload', blank=True, null=True)
-    school_report = models.FileField(verbose_name='成绩单', upload_to='upload', blank=True, null=True)
-    other_material = models.FileField(verbose_name='其他材料', upload_to='upload', blank=True, null=True)
+    personal_statement = models.FileField(verbose_name='个人陈述', upload_to='uploads', blank=True, null=True)
+    school_report = models.FileField(verbose_name='成绩单', upload_to='uploads', blank=True, null=True)
+    other_material = models.FileField(verbose_name='其他材料', upload_to='uploads', blank=True, null=True)
 
     # 确认提交
     is_confirmed = models.CharField(verbose_name='确认提交', choices=yes_or_no_choices, max_length=128, default='否', blank=True)
