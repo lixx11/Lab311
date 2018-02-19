@@ -1,5 +1,3 @@
-/* OBJECT TOOLS */
-
 .receiver-list {
     font-size: 10px;
     font-weight: bold;
@@ -9,64 +7,33 @@
     margin-top: -48px;
 }
 
-.form-row .receiver-list {
-    margin-top: 5px;
-    margin-bottom: 5px;
+.receiver-list {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 0;
     float: none;
     height: 2em;
     padding-left: 0;
 }
 
-.receiver-list ul{
-    margin-left: 0;
-}
-
 .receiver-list li {
     display: block;
     float: left;
-    margin-left: 5px;
     height: 2em;
+    margin: 5px;
 }
 
 .receiver-list div {
     border-radius: 15px;
-    background: #999;
     color: #fff;
-}
-
-/*.receiver-list div:link, .receiver-list div:visited {
-    display: block;
-    float: left;
-    padding: 3px 12px;
-    background: #999;
-    font-weight: 400;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #fff;
-}*/
-
-.receiver-list div:focus, .receiver-list div:hover {
-    background-color: #417690;
     cursor: pointer;
+    background-color: #417690;
 }
 
-
-.receiver-list div.deletelink {
+div.delete-link {
     background-repeat: no-repeat;
     background-position: 93% center;
     padding-right: 26px;
+    padding-left: 10px;
+    background-image: url("/static/img/inline-delete.svg");
 }
-
-/*.receiver-list a.viewsitelink, .receiver-list a.golink {
-    background-image: url(../img/tooltag-arrowright.svg);
-}
-
-.receiver-list a.addlink {
-    background-image: url(../img/tooltag-add.svg);
-}*/
-
-.receiver-list div.deletelink {
-    background-image: url(../img/inline-delete.svg);
-}
-/* OBJECT HISTORY */

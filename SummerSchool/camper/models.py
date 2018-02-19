@@ -35,9 +35,9 @@ class Profile(models.Model):
     second_degree = models.CharField(verbose_name='二志愿学位', choices=degree_choices, max_length=128, blank=True,
                                      null=True)
     first_institute = models.CharField(verbose_name='一志愿单位', choices=institute_choices, max_length=128, blank=True,
-                                         null=True)
-    second_institute = models.CharField(verbose_name='二志愿单位', choices=institute_choices, max_length=128,
-                                          blank=True, null=True)
+                                       null=True)
+    second_institute = models.CharField(verbose_name='二志愿单位', choices=institute_choices, max_length=128, blank=True,
+                                        null=True)
     first_interest = models.CharField(verbose_name='一志愿方向', choices=interest_choices, max_length=128, blank=True,
                                       null=True)
     second_interest = models.CharField(verbose_name='二志愿方向', choices=interest_choices, max_length=128, blank=True,
@@ -45,6 +45,7 @@ class Profile(models.Model):
     # 资助申请
     yes_or_no_choices = (('否', '否'), ('是', '是'))
     fund_applied = models.CharField(verbose_name='是否申请资助', choices=yes_or_no_choices, max_length=128, blank=True, null=True)
+    fund_application_text = models.TextField(verbose_name='资助申请理由', blank=True, null=True)
 
     # 其他
     cloth_choices = (('S', 'S'), ('M', 'M'), ('L', 'L'), ('XL', 'XL'), ('XXL', 'XXL'), ('XXXL', 'XXXL'))
@@ -72,5 +73,5 @@ class Profile(models.Model):
     inet_retest_grade = models.CharField(verbose_name='核研院复试结果', choices=retest_grade_choices, max_length=128, default='未审核', blank=True, null=True)
 
     class Meta:
-        verbose_name = '用户信息'
-        verbose_name_plural = '所有用户信息'
+        verbose_name = '报名信息'
+        verbose_name_plural = '所有报名信息'

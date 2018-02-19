@@ -35,16 +35,16 @@ def submit_profile(request):
                 profile.save()
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
-            context_dict = {'profile_form': profile_form, 'user': user}
-            return render(request, 'camper/profile.html', context_dict)
+            context = {'profile_form': profile_form, 'user': user}
+            return render(request, 'camper/profile.html', context)
         else:
             return HttpResponse(form.errors)
     elif request.method == 'GET':
         profile = Profile.objects.get_or_create(user=user)[0]
         profile_form = ProfileForm(instance=profile)
         file_upload_form = FileUploadForm(instance=profile)
-        context_dict = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
-        return render(request, 'camper/profile.html', context_dict)
+        context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
+        return render(request, 'camper/profile.html', context)
 
 
 def submit_files(request):
@@ -78,7 +78,7 @@ def submit_files(request):
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
             file_upload_form = FileUploadForm(instance=profile)
-            context_dict = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
-            return render(request, 'camper/profile.html', context_dict)
+            context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
+            return render(request, 'camper/profile.html', context)
     else:
         return redirect('/profile')
