@@ -33,7 +33,7 @@
 div.delete-link {
     background-repeat: no-repeat;
     background-position: 93% center;
+    background-image: url("/static/img/inline-delete.svg");
     padding-right: 26px;
     padding-left: 10px;
-    background-image: url("/static/img/inline-delete.svg");
 }

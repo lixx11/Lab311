@@ -28,7 +28,7 @@
     <div id="content">
         <h1>发送邮件</h1>
         <div id="content-main">
-            <form enctype="multipart/form-data" action="/admin/send_email/" method="post">
+            <form enctype="multipart/form-data" action="/admin/camper/profile/send_email/" method="post">
                 {% csrf_token %}
                 <div>
                     <fieldset class="module">
@@ -36,9 +36,10 @@
                         <div class="form-row">
                             <div>
                                 <ul class="receiver-list">
-                                    {% for name in recipients %}
+                                    {% for name, email, email_tag in recipients %}
                                         <li>
                                             <div class="delete-link">
+                                                <input type="hidden" name="{{ email_tag }}" value="{{ email }}">
                                                 <span>{{ name|default:"匿名" }}</span>
                                             </div>
                                         </li>

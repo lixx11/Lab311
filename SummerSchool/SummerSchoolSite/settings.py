@@ -12,6 +12,27 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+# django email for registration
+DEFAULT_FROM_EMAIL = '18810307602@139.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.139.com'
+EMAIL_HOST_USER = '18810307602'
+EMAIL_HOST_PASSWORD = 'LXX1530546985'
+
+# official email for important notification
+OFFICIAL_EMAIL_HOST = 'mails.tsinghua.edu.cn'
+OFFICIAL_FROM_EMAIL = 'li-xx15@mails.tsinghua.edu.cn'
+OFFICIAL_EMAIL_HOST_USER = 'li-xx15@mails.tsinghua.edu.cn'
+OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
+
+# registration
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = 'profile'
+
+# website
+WEBSITE = "http://127.0.0.1:8000"
+YEAR = '2018'  # IMPORTANT!!!
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,6 +86,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'camper.filters',
+            ],
         },
     },
 ]
@@ -78,7 +102,7 @@ WSGI_APPLICATION = 'SummerSchoolSite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'summer_school_%s.sqlite3' % YEAR),
     }
 }
 
@@ -123,19 +147,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-print(STATICFILES_DIRS)
 
 # media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-# django email
-DEFAULT_FROM_EMAIL = '18810307602@139.com'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.139.com'
-EMAIL_HOST_USER = '18810307602'
-EMAIL_HOST_PASSWORD = 'LXX1530546985'
-
-# registration
-ACCOUNT_ACTIVATION_DAYS = 7
-LOGIN_REDIRECT_URL = 'profile'
