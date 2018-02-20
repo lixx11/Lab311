@@ -14,14 +14,14 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
         <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
-        {% if profile_form.name.value %}
-            <div class="text-info">
+        <div class="text-info">
+            {% if profile_form.name.value %}
                 欢迎{{ profile_form.name.value|default_if_none:"同学" }}，
-                {% if user.is_authenticated %}
-                    <a href="/accounts/logout/?next=/" class="button ">退出</a>
-                {% endif %}
-            </div>
-        {% endif %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="/accounts/logout/?next=/" class="button ">退出</a>
+            {% endif %}
+        </div>
     </nav>
 </header>
 
