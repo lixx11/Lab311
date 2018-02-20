@@ -12,7 +12,6 @@ def index(request):
 
 
 def submit_profile(request):
-    # 获取用户信息
     try:
         username = request.user.username
         user = User.objects.get(username=username)
@@ -21,7 +20,7 @@ def submit_profile(request):
 
     if request.method == 'POST':
         profile = Profile.objects.get(user=user)
-        if profile.is_confirmed == '是':  # 如果确认，不再修改
+        if profile.is_confirmed == '是':
             return HttpResponse('申请表已确认，无法修改')
 
         form = ProfileForm(request.POST)
@@ -35,7 +34,8 @@ def submit_profile(request):
                 profile.save()
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
-            context = {'profile_form': profile_form, 'user': user}
+            file_upload_form = FileUploadForm(instance=profile)
+            context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
             return render(request, 'camper/profile.html', context)
         else:
             return HttpResponse(form.errors)
@@ -48,7 +48,6 @@ def submit_profile(request):
 
 
 def submit_files(request):
-    # 获取用户信息
     try:
         username = request.user.username
         user = User.objects.get(username=username)

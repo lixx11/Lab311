@@ -462,7 +462,7 @@
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">个人陈述</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">{{ file_upload_form.personal_statement.value|default_if_none:'未提交' }}</label>
+                                    <label class="text-left">{{ file_upload_form.personal_statement.value|default_if_none:'未提交'|split:'/'|last }}</label>
                                     <input type="file" class="filestyle" id="personal_statement"
                                            name="personal_statement" data-text="浏览...">
                                 </div>
@@ -471,7 +471,7 @@
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">成绩单</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">{{ file_upload_form.school_report.value|default_if_none:'未提交' }}</label>
+                                    <label class="text-left">{{ file_upload_form.school_report.value|default_if_none:'未提交'|split:'/'|last }}</label>
                                     <input type="file" class="filestyle" id="school_report"
                                            name="school_report" data-text="浏览...">
                                 </div>
@@ -480,7 +480,7 @@
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">其他材料</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left">{{ file_upload_form.other_material.value|default_if_none:'未提交' }}</label>
+                                    <label class="text-left">{{ file_upload_form.other_material.value|default_if_none:'未提交'|split:'/'|last }}</label>
                                     <input type="file" class="filestyle" id="other_material"
                                            name="other_material" data-text="浏览...">
                                 </div>
@@ -526,6 +526,9 @@
     $('#is_confirmed').change(function () {
     if (this.checked) {
     $('#profile_form :input').prop('required', true);
+    }
+    else {
+    $('#profile_form :input').prop('required', false);
     }
     });
 

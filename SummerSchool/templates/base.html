@@ -4,7 +4,7 @@
     <meta>{% block meta %}{% endblock %}</meta>
     <title>{% block title %}{% endblock %}</title>
     {% block extrahead %}{% endblock %}
-    <link rel="stylesheet" href="/static/css/base.css"/>
+    <link rel="stylesheet" href="/static/css/extra.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/login.css"/>
@@ -16,7 +16,10 @@
         <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
         {% if profile_form.name.value %}
             <div class="text-info">
-                欢迎{{ profile_form.name.value|default_if_none:"同学" }}，<a href="/accounts/logout/?next=/" class="button ">退出</a>
+                欢迎{{ profile_form.name.value|default_if_none:"同学" }}，
+                {% if user.is_authenticated %}
+                    <a href="/accounts/logout/?next=/" class="button ">退出</a>
+                {% endif %}
             </div>
         {% endif %}
     </nav>
