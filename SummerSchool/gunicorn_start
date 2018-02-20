@@ -1,12 +1,11 @@
 #!/bin/bash
 
 NAME="SummerSchool"
-BIND=unix:/Users/lixuanxuan/repository/Lab311/SummerSchool/gunicorn.sock
+BIND=unix:/tmp/gunicorn.sock
 DJANGO_SETTINGS_MODULE=summer_school.settings
 DJANGO_WSGI_MODULE=summer_school.wsgi
 LOG_LEVEL=debug
 
-source env/bin/activate
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 
