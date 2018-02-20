@@ -11,3 +11,8 @@ python SummerSchool/manage.py migrate
 # run server in development mode
 python SummerSchool/manage.py runserver
 ```
+
+## 如何部署
+```
+pip install gunicorn
+```
