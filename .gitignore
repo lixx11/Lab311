@@ -1,3 +1,6 @@
+# django static files
+staticfiles/
+
 # django media files
 media/
 
