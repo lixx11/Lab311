@@ -7,10 +7,16 @@
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}"/>{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}"/>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
+{% endblock %}
 {% block coltype %}colM{% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学核学科夏令营管理后台</a></h1>
+{% endblock %}
 
 {% if not is_popup %}
     {% block breadcrumbs %}
@@ -24,11 +30,71 @@
 {% endif %}
 
 {% block content %}
-    <div id="content-main">
-        <div>
-            <h3>统计信息</h3>
+    <div class="container">
+        <div style="margin: 20px;">
+            <h4>基本信息</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">#(注册人数)</th>
+                    <th scope="col">#(完成填表)</th>
+                    <th scope="col">#(提交文件)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ nb_registraters }}</td>
+                    <td>{{ nb_complete_form }}</td>
+                    <td>{{ nb_fileupload }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin: 20px;">
+            <h4>初审结果</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">#(管理员)</th>
+                    <th scope="col">#(待审核)</th>
+                    <th scope="col">#(已通过)</th>
+                    <th scope="col">#(未通过)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin: 20px;">
+            <h4>复试结果</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">#(院系)</th>
+                    <th scope="col">#(A1)</th>
+                    <th scope="col">#(A2)</th>
+                    <th scope="col">#(B)</th>
+                    <th scope="col">#(C)</th>
+                    <th scope="col">#(未审核)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    {# JavaScript for prepopulated fields #}
-    {% prepopulated_fields_js %}
 {% endblock %}

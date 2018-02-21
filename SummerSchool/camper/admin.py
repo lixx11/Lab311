@@ -98,7 +98,11 @@ class ProfileAdmin(admin.ModelAdmin):
 
     def show_statistics_view(self, request):
         opts = self.model._meta
-        context = {'opts': opts}
+        context = dict()
+        context['opts'] = opts
+        context['nb_registraters'] = len(Profile.objects.all())
+        context['nb_complete_form'] = len(Profile.objects.exclude(is_confirmed=0))
+        context['nb_fileupload'] = len(Profile.objects.exclude(personal_statement='').exclude(school_report=''))
         return render(request, 'admin/statistics.html', context)
 
 
