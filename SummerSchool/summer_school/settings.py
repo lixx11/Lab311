@@ -31,6 +31,7 @@ OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
+DEADLINE = {'month': 2, 'day': 1}
 
 # website
 WEBSITE = "http://127.0.0.1:8000"
@@ -42,7 +43,7 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    ALLOWED_HOSTS = ['*',]
+    ALLOWED_HOSTS = ['*', ]
     X_FRAME_OPTIONS = 'DENY'
 else:
     ALLOWED_HOSTS = []
@@ -50,14 +51,11 @@ else:
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'yp=gxh$en^(hkwn@!m59$9%f5ja#mt&nsa&3k$m&fb)!(jjy$d'
-
-
 
 # Application definition
 
@@ -95,6 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'camper.context_processors.global_settings',
             ],
             'builtins': [
                 'camper.filters',
@@ -105,7 +104,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'summer_school.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -115,7 +113,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'summer_school_%s.sqlite3' % YEAR),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -135,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -148,7 +144,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
