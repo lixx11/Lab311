@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="SummerSchool"
-BIND=unix:/tmp/gunicorn.sock
+BIND=unix:/tmp/summer_school.sock
 DJANGO_SETTINGS_MODULE=summer_school.settings
 DJANGO_WSGI_MODULE=summer_school.wsgi
 LOG_LEVEL=debug
