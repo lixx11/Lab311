@@ -13,6 +13,30 @@ python SummerSchool/manage.py runserver
 ```
 
 ## 如何部署
+* 安装运行gunicorn
 ```
 pip install gunicorn
+./gunicorn_start
+```
+
+* 部署nginx
+
+**服务器配置示例**
+```
+server {
+    listen 80; 
+    server_name summer-school-server; 
+    access_log /var/log/summer_school_access.log;
+    error_log /var/log/summer_school_error.log;
+    
+    location = /favicon.ico {
+        alias /path/to/favicon.ico;
+    }
+    location /static/ { 
+        alias /path/to/staticfiles/; 
+    } 
+    location / { 
+        proxy_pass http://unix:/tmp/summer_school.sock; 
+    } 
+}
 ```
