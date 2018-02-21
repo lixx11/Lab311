@@ -103,6 +103,32 @@ class ProfileAdmin(admin.ModelAdmin):
         context['nb_registraters'] = len(Profile.objects.all())
         context['nb_complete_form'] = len(Profile.objects.exclude(is_confirmed=0))
         context['nb_fileupload'] = len(Profile.objects.exclude(personal_statement='').exclude(school_report=''))
+        context['nb_dep_pass'] = len(Profile.objects.filter(dep_check_status='通过'))
+        context['nb_dep_fail'] = len(Profile.objects.filter(dep_check_status='不通过'))
+        context['nb_dep_nocheck'] = len(Profile.objects.filter(dep_check_status='未审核')) + len(
+            Profile.objects.filter(dep_check_status=None))
+        context['nb_inet_pass'] = len(Profile.objects.filter(inet_check_status='通过'))
+        context['nb_inet_fail'] = len(Profile.objects.filter(inet_check_status='不通过'))
+        context['nb_inet_nocheck'] = len(Profile.objects.filter(inet_check_status='未审核')) + len(
+            Profile.objects.filter(inet_check_status=None))
+        context['nb_root_pass'] = len(Profile.objects.filter(check_status='通过'))
+        context['nb_root_fail'] = len(Profile.objects.filter(check_status='不通过'))
+        context['nb_root_nocheck'] = len(Profile.objects.filter(check_status='未审核')) + len(
+            Profile.objects.filter(check_status=None))
+        context['nb_dep_retest_A1'] = len(Profile.objects.filter(check_status='通过').filter(dep_retest_grade='A1'))
+        context['nb_dep_retest_A2'] = len(Profile.objects.filter(check_status='通过').filter(dep_retest_grade='A2'))
+        context['nb_dep_retest_B'] = len(Profile.objects.filter(check_status='通过').filter(dep_retest_grade='B'))
+        context['nb_dep_retest_C'] = len(Profile.objects.filter(check_status='通过').filter(dep_retest_grade='C'))
+        context['nb_dep_retest_nocheck'] = len(
+            Profile.objects.filter(check_status='通过').filter(dep_retest_grade='未审核')) + len(
+            Profile.objects.filter(check_status='通过').filter(dep_retest_grade=None))
+        context['nb_inet_retest_A1'] = len(Profile.objects.filter(check_status='通过').filter(inet_retest_grade='A1'))
+        context['nb_inet_retest_A2'] = len(Profile.objects.filter(check_status='通过').filter(inet_retest_grade='A2'))
+        context['nb_inet_retest_B'] = len(Profile.objects.filter(check_status='通过').filter(inet_retest_grade='B'))
+        context['nb_inet_retest_C'] = len(Profile.objects.filter(check_status='通过').filter(inet_retest_grade='C'))
+        context['nb_inet_retest_nocheck'] = len(
+            Profile.objects.filter(check_status='通过').filter(inet_retest_grade='未审核')) + len(
+            Profile.objects.filter(check_status='通过').filter(inet_retest_grade=None))
         return render(request, 'admin/statistics.html', context)
 
 

@@ -7,15 +7,15 @@
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}"/>
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>
 {% endblock %}
 {% block coltype %}colM{% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学核学科夏令营管理后台</a></h1>
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学核学科夏令营管理后台</a></h1>
 {% endblock %}
 
 {% if not is_popup %}
@@ -36,9 +36,9 @@
             <table class="table table-secondary text-center">
                 <thead>
                 <tr>
-                    <th scope="col">#(注册人数)</th>
-                    <th scope="col">#(完成填表)</th>
-                    <th scope="col">#(提交文件)</th>
+                    <th scope="col">注册人数</th>
+                    <th scope="col">完成填表</th>
+                    <th scope="col">提交文件</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,18 +55,30 @@
             <table class="table table-secondary text-center">
                 <thead>
                 <tr>
-                    <th scope="col">#(管理员)</th>
-                    <th scope="col">#(待审核)</th>
-                    <th scope="col">#(已通过)</th>
-                    <th scope="col">#(未通过)</th>
+                    <th scope="col">管理员</th>
+                    <th scope="col">待审核</th>
+                    <th scope="col">已通过</th>
+                    <th scope="col">未通过</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>工物系</td>
+                    <td>{{ nb_dep_nocheck }}</td>
+                    <td>{{ nb_dep_pass }}</td>
+                    <td>{{ nb_dep_fail }}</td>
+                </tr>
+                <tr>
+                    <td>核研院</td>
+                    <td>{{ nb_inet_nocheck }}</td>
+                    <td>{{ nb_inet_pass }}</td>
+                    <td>{{ nb_inet_fail }}</td>
+                </tr>
+                <tr>
+                    <td>终审</td>
+                    <td>{{ nb_root_nocheck }}</td>
+                    <td>{{ nb_root_pass }}</td>
+                    <td>{{ nb_root_fail }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -76,22 +88,30 @@
             <table class="table table-secondary text-center">
                 <thead>
                 <tr>
-                    <th scope="col">#(院系)</th>
-                    <th scope="col">#(A1)</th>
-                    <th scope="col">#(A2)</th>
-                    <th scope="col">#(B)</th>
-                    <th scope="col">#(C)</th>
-                    <th scope="col">#(未审核)</th>
+                    <th scope="col">院系</th>
+                    <th scope="col">A1</th>
+                    <th scope="col">A2</th>
+                    <th scope="col">B</th>
+                    <th scope="col">C</th>
+                    <th scope="col">未审核</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>工物系</td>
+                    <td>{{ nb_dep_retest_A1 }}</td>
+                    <td>{{ nb_dep_retest_A2 }}</td>
+                    <td>{{ nb_dep_retest_B }}</td>
+                    <td>{{ nb_dep_retest_C }}</td>
+                    <td>{{ nb_dep_retest_nocheck }}</td>
+                </tr>
+                <tr>
+                    <td>核研院</td>
+                    <td>{{ nb_inet_retest_A1 }}</td>
+                    <td>{{ nb_inet_retest_A2 }}</td>
+                    <td>{{ nb_inet_retest_B }}</td>
+                    <td>{{ nb_inet_retest_C }}</td>
+                    <td>{{ nb_inet_retest_nocheck }}</td>
                 </tr>
                 </tbody>
             </table>
