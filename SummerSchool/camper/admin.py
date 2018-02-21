@@ -93,7 +93,7 @@ class ProfileAdmin(admin.ModelAdmin):
         urlpatterns = super(ProfileAdmin, self).get_urls()
         urlpatterns.insert(0, path('send_email/', self.admin_site.admin_view(send_email_view)))
         urlpatterns.insert(0, path('show_statistics/', self.admin_site.admin_view(self.show_statistics_view)))
-        urlpatterns.insert(0, path('download_profiles/', self.admin_site.admin_view(self.download_profile_view)))
+        urlpatterns.insert(0, path('download_profiles/', self.admin_site.admin_view(download_profile_view)))
         return urlpatterns
 
     def show_statistics_view(self, request):
@@ -101,8 +101,25 @@ class ProfileAdmin(admin.ModelAdmin):
         context = {'opts': opts}
         return render(request, 'admin/statistics.html', context)
 
-    def download_profile_view(self, request):
-        return HttpResponse('下载表单')
+
+def download_profile_view(request):
+    import pandas as pd
+    import sqlite3
+    from .models import Profile
+
+    all_fields = Profile._meta.get_fields()
+    download_fields_dict = {field.name: field.verbose_name for field in all_fields}
+    download_fields_dict.pop('user')
+    download_fields = list(download_fields_dict.keys())
+    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format("报名表".encode('utf8').decode('ISO-8859-1'))
+    db = settings.DATABASES['default']['NAME']
+    con = sqlite3.connect(db)
+    df = pd.read_sql_query("SELECT * from camper_profile", con)
+    df = df[download_fields]
+    df.columns = [download_fields_dict[x] for x in df.columns]
+    df.to_excel(response, index=False)
+    return response
 
 
 def send_email_view(request):
