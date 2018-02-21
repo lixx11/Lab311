@@ -13,16 +13,20 @@ python SummerSchool/manage.py runserver
 ```
 
 ## 如何部署
-* 安装运行gunicorn
+* collect static files
+```
+python SummerSchool/manage.py collectstatic
+```
+
+* setup gunicorn
 ```
 pip install gunicorn
 ./gunicorn_start
 ```
 
-* 部署nginx
-
-**服务器配置示例**
+* deploy on nginx
 ```
+# example conf
 server {
     listen 80; 
     server_name summer-school-server; 
