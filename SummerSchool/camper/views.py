@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import ProfileForm, FileUploadForm
 from .models import Profile
+import datetime
+from django.conf import settings
 
 
 # Create your views here.
@@ -18,7 +20,15 @@ def submit_profile(request):
     except ObjectDoesNotExist:
         return redirect('/accounts/login')
 
+    now = datetime.datetime.now()
+    if now.month >= settings.DEADLINE['month'] and now.day >= settings.DEADLINE['day']:
+        submission_over = True
+    else:
+        submission_over = False
+
     if request.method == 'POST':
+        if submission_over:
+            return HttpResponse('报名信息提交已截止！')
         profile = Profile.objects.get(user=user)
         if profile.is_confirmed == '是':
             return HttpResponse('申请表已确认，无法修改')
@@ -27,11 +37,7 @@ def submit_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = user
-            update_fields = list(form.fields.keys())
-            try:
-                profile.save(update_fields=update_fields)
-            except:
-                profile.save()
+            profile.save()
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
             file_upload_form = FileUploadForm(instance=profile)
@@ -43,7 +49,8 @@ def submit_profile(request):
         profile = Profile.objects.get_or_create(user=user)[0]
         profile_form = ProfileForm(instance=profile)
         file_upload_form = FileUploadForm(instance=profile)
-        context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
+        context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user,
+                   'submission_over': submission_over}
         return render(request, 'camper/profile.html', context)
 
 

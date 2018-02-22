@@ -1,130 +1,139 @@
 {% extends 'base.html' %}
 {% block content %}
-    <main class="container">
+    <main class="container" style="height: 100%">
         {% csrf_token %}
-        <div class="row justify-content-center">
-            <div class="row col-md-9">
-                <div class="col-md-2 justify-content-center">
-                    <a class="justify-content-center" href="#">
-                        <img id="sign-up" src="/static/img/fi-at-sign.svg" style="opacity: 1; width: 100%">
-                    </a>
-                    <h5 class="text-center">注册</h5>
-                </div>
-                <div class="col-md-2">
-                    <img id="rigtharrow1" src="/static/img/fi-arrow-right.svg"
-                         style="opacity: 1.0;">
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
-                                     data-target="#profileModal"
-                                     style="opacity: {% if profile_form.is_confirmed.value == '是' %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
-                    <h5 class="text-center">填表</h5>
-                </div>
-
-                <div class="col-md-2">
-                    <a href="#"><img id="file-upload" src="/static/img/fi-folder-add.svg" data-toggle="modal"
-                                     data-target="#fileModal"
-                                     style="opacity: {% if file_upload_form.personal_statement.value and file_upload_form.school_report.value %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
-                    <h5 class="text-center">传文件</h5>
-                </div>
-                <div class="col-md-2">
-                    <img id="rigtharrow2" src="/static/img/fi-arrow-right.svg"
-                         style="opacity:
-                                 {% if profile_form.is_confirmed.value == '是' and file_upload_form.personal_statement.value and file_upload_form.school_report.value %}
-                                     1.0
-                                 {% else %}
-                                     0.5
-                                 {% endif %}; width: 100%">
-                </div>
-                <div class="col-md-2">
-                    <a href="#"><img id="wait-result" src="/static/img/fi-flag.svg"
-                                     style="opacity: 0.5; width: 100%"></a>
-                    <h5 class="text-center">等待结果</h5>
-                </div>
-            </div>
-        </div>
-        <h5 style="padding: 5px">当前进度</h5>
-        <div class="row justify-content-center" style="padding: 10px">
-            <div class="row">
-                <div id="notification" class="text-center">
-                    {% if profile_form.is_confirmed.value != '是' %}
-                        您信息尚未提交，请点击填表图标完成报名信息。
-                    {% elif not file_upload_form.personal_statement.value %}
-                        您个人陈述文件未上传，请点击传文件图标上传相关文件。
-                    {% elif not file_upload_form.school_report.value %}
-                        您成绩单尚未上传，请点击传文件图标上传相关文件。
-                    {% else %}
-                        报名信息与相关文件已成功提交，请等候审核结果通知。
-                        <small>(在报名截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <h5 style="padding: 5px">报名信息</h5>
-        <div class="row justify-content-center" style="padding: 10px">
-            <div class="col-md-6">
+        <div class="row justify-content-center align-items-center" style="height: 100%">
+            <div class="container col-md-8 align-items-center">
                 <div class="row justify-content-center">
-                    <div class="col-md-4">
-                        <ul class="list-group" style="list-style: none;">
-                            <li class="text-right">姓名：</li>
-                            <li class="text-right">性别：</li>
-                            <li class="text-right">年龄：</li>
-                            <li class="text-right">学校：</li>
-                            <li class="text-right">专业：</li>
-                            <li class="text-right">邮箱：</li>
-                            <li class="text-right">手机：</li>
-                            <li class="text-right">身份证号：</li>
-                        </ul>
+                    <div class="col-md-2 justify-content-center">
+                        <a class="justify-content-center" href="#">
+                            <img id="sign-up" src="/static/img/fi-at-sign.svg" style="opacity: 1; width: 100%">
+                        </a>
+                        <h5 class="text-center">注册</h5>
                     </div>
-                    <div class="col-md-8">
-                        <ul class="list-group" style="list-style: none;">
-                            <li>{{ profile_form.name.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ profile_form.gender.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ profile_form.age.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ profile_form.school.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ profile_form.major.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ user.email|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ profile_form.phone_number.value|default_if_none:'未填'|default:'未填' }}</li>
-                            <li>{{ profile_form.id_number.value|default_if_none:'未填'|default:'未填' }}</li>
-                        </ul>
+                    <div class="col-md-2">
+                        <img id="rigtharrow1" src="/static/img/fi-arrow-right.svg"
+                             style="opacity: 1.0;">
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#"><img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
+                                         data-target="#profileModal"
+                                         style="opacity: {% if profile_form.is_confirmed.value == '是' %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
+                        <h5 class="text-center">填表</h5>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href="#"><img id="file-upload" src="/static/img/fi-folder-add.svg" data-toggle="modal"
+                                         data-target="#fileModal"
+                                         style="opacity: {% if file_upload_form.personal_statement.value and file_upload_form.school_report.value %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
+                        <h5 class="text-center">传文件</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <img id="rigtharrow2" src="/static/img/fi-arrow-right.svg"
+                             style="opacity:
+                                     {% if profile_form.is_confirmed.value == '是' and file_upload_form.personal_statement.value and file_upload_form.school_report.value %}
+                                         1.0
+                                     {% else %}
+                                         0.5
+                                     {% endif %}; width: 100%">
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#"><img id="wait-result" src="/static/img/fi-flag.svg"
+                                         style="opacity: 0.5; width: 100%"></a>
+                        <h5 class="text-center">等待结果</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="row justify-content-center">
-                    <div class="col-md-4">
-                        <ul class="list-group" style="list-style: none;">
-                            <li class="text-right">专业排名：</li>
-                            <li class="text-right">班级排名：</li>
-                            <li class="text-right">英语水平：</li>
-                            <li class="text-right">志愿学位：</li>
-                            <li class="text-right">志愿单位：</li>
-                            <li class="text-right">志愿方向：</li>
-                            <li class="text-right">服装大小：</li>
-                            <li class="text-right">资助申请：</li>
-                        </ul>
+            <div class="container col-md-10 align-items-center">
+                <div class="row text-left">
+                    <h5>当前进度</h5>
+                </div>
+                <div class="row text-center justify-content-center">
+                    <div id="notification">
+                        {% if submission_over %}
+                            报名信息提交已截止，请等候审核结果通知。
+                        {% elif profile_form.is_confirmed.value != '是' %}
+                            您信息尚未提交，请点击填表图标完成报名信息。
+                        {% elif not file_upload_form.personal_statement.value %}
+                            您个人陈述文件未上传，请点击传文件图标上传相关文件。
+                        {% elif not file_upload_form.school_report.value %}
+                            您成绩单尚未上传，请点击传文件图标上传相关文件。
+                        {% else %}
+                            报名信息与相关文件已成功提交，请等候审核结果通知。
+                            <small>(在报名截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
+                        {% endif %}
                     </div>
-                    <div class="col-md-8">
-                        <ul class="list-group" style="list-style: none;">
-                            <li>{{ profile_form.major_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.major_number.value|default_if_none:"未填"|default:'未填' }}
-                            </li>
-                            <li>{{ profile_form.class_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.class_number.value|default_if_none:"未填"|default:'未填' }}
-                            </li>
-                            <li>{{ profile_form.english_level.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ profile_form.first_degree.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ profile_form.second_degree.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ profile_form.first_institute.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ profile_form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填' }};
-                                2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ profile_form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
-                            <li>{{ profile_form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
-                        </ul>
+                </div>
+            </div>
+            <div class="container col-md-10 align-items-center">
+                <div class="row text-left">
+                    <h5>报名信息</h5>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <ul class="list-group" style="list-style: none;">
+                                    <li class="text-right">姓名：</li>
+                                    <li class="text-right">性别：</li>
+                                    <li class="text-right">年龄：</li>
+                                    <li class="text-right">学校：</li>
+                                    <li class="text-right">专业：</li>
+                                    <li class="text-right">邮箱：</li>
+                                    <li class="text-right">手机：</li>
+                                    <li class="text-right">身份证号：</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="list-group" style="list-style: none;">
+                                    <li>{{ profile_form.name.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>{{ profile_form.gender.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>{{ profile_form.age.value|default_if_none:'未填'|default:'未填' }}</li>
+                                    <li>{{ profile_form.school.value|default_if_none:'未填'|default:'未填' }}</li>
+                                    <li>{{ profile_form.major.value|default_if_none:'未填'|default:'未填' }}</li>
+                                    <li>{{ user.email|default_if_none:'未填'|default:'未填' }}</li>
+                                    <li>{{ profile_form.phone_number.value|default_if_none:'未填'|default:'未填' }}</li>
+                                    <li>{{ profile_form.id_number.value|default_if_none:'未填'|default:'未填' }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row justify-content-center">
+                            <div class="col-md-4">
+                                <ul class="list-group" style="list-style: none;">
+                                    <li class="text-right">专业排名：</li>
+                                    <li class="text-right">班级排名：</li>
+                                    <li class="text-right">英语水平：</li>
+                                    <li class="text-right">志愿学位：</li>
+                                    <li class="text-right">志愿单位：</li>
+                                    <li class="text-right">志愿方向：</li>
+                                    <li class="text-right">服装大小：</li>
+                                    <li class="text-right">资助申请：</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-8">
+                                <ul class="list-group" style="list-style: none;">
+                                    <li>{{ profile_form.major_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.major_number.value|default_if_none:"未填"|default:'未填' }}
+                                    </li>
+                                    <li>{{ profile_form.class_rank.value|default_if_none:"未填"|default:'未填' }}/{{ profile_form.class_number.value|default_if_none:"未填"|default:'未填' }}
+                                    </li>
+                                    <li>{{ profile_form.english_level.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>1-{{ profile_form.first_degree.value|default_if_none:"未填"|default:'未填' }};
+                                        2-{{ profile_form.second_degree.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>1-{{ profile_form.first_institute.value|default_if_none:"未填"|default:'未填' }};
+                                        2-{{ profile_form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填' }};
+                                        2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>{{ profile_form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>{{ profile_form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -162,7 +171,8 @@
                             </div>
                             <div class="form-group row align-items-center">
                                 <label for="school" class="col-form-label col-sm-3 text-right">学校：</label>
-                                <input type="text" class="form-control col-sm-3 text-right" id="school" name="school"
+                                <input type="text" class="form-control col-sm-3 text-right" id="school"
+                                       name="school"
                                        value="{{ profile_form.school.value|default_if_none:'' }}">
                                 <label for="major" class="col-form-label col-sm-2 text-right">专业：</label>
                                 <input type="text" class="form-control col-sm-3 text-right" id="major" name="major"
@@ -199,13 +209,15 @@
                             <div class="form-group row align-items-center">
                                 <label for="english_level" class="col-form-label col-sm-3 text-right">英语水平：</label>
                                 <input type="text" class="form-control col-sm-8 text-right" id="english_level"
-                                       name="english_level" value="{{ profile_form.english_level.value|default:'' }}">
+                                       name="english_level"
+                                       value="{{ profile_form.english_level.value|default:'' }}">
                             </div>
                             <div class="dropdown-divider"></div>
 
                             <div class="form-group row align-items-center">
                                 <label for="first_degree" class="col-form-label col-sm-3 text-right">一志愿学位：</label>
-                                <select class="form-control col-sm-3 text-right" id="first_degree" name="first_degree">
+                                <select class="form-control col-sm-3 text-right" id="first_degree"
+                                        name="first_degree">
                                     <option value="" {% if not profile_form.first_degree.value %}
                                             selected
                                     {% endif %}>------------------------
@@ -236,7 +248,8 @@
                                 </select>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label for="first_institute" class="col-form-label col-sm-3 text-right">一志愿院系：</label>
+                                <label for="first_institute"
+                                       class="col-form-label col-sm-3 text-right">一志愿院系：</label>
                                 <select class="form-control col-sm-3 text-right" id="first_institute"
                                         name="first_institute">
                                     <option value="">------------------------</option>
@@ -249,7 +262,8 @@
                                     {% endif %}>核研院
                                     </option>
                                 </select>
-                                <label for="second_institute" class="col-form-label col-sm-2 text-right">二志愿院系：</label>
+                                <label for="second_institute"
+                                       class="col-form-label col-sm-2 text-right">二志愿院系：</label>
                                 <select class="form-control col-sm-3 text-right" id="second_institute"
                                         name="second_institute">
                                     <option value="" selected="selected">------------------------</option>
@@ -264,7 +278,8 @@
                                 </select>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label for="first_interest" class="col-form-label col-sm-3 text-right">一志愿方向：</label>
+                                <label for="first_interest"
+                                       class="col-form-label col-sm-3 text-right">一志愿方向：</label>
                                 <select class="form-control col-sm-3 text-right" id="first_interest"
                                         name="first_interest">
                                     <option value="">------------------------</option>
@@ -284,9 +299,10 @@
                                             selected
                                     {% endif %}>核能科学与工程
                                     </option>
-                                    <option value="裂变能科学与工程" {% if profile_form.first_interest.value == '裂变能科学与工程' %}
+                                    <option value="裂变能科学与工程"
+                                            {% if profile_form.first_interest.value == '裂变能科学与工程' %}
                                             selected
-                                    {% endif %}>裂变能科学与工程
+                                            {% endif %}>裂变能科学与工程
                                     </option>
                                     <option value="核聚变与等离子物理"
                                             {% if profile_form.first_interest.value == '核聚变与等离子物理' %}
@@ -316,7 +332,8 @@
                                     {% endif %}>安全科学与工程
                                     </option>
                                 </select>
-                                <label for="second_interest" class="col-form-label col-sm-2 text-right">二志愿方向：</label>
+                                <label for="second_interest"
+                                       class="col-form-label col-sm-2 text-right">二志愿方向：</label>
                                 <select class="form-control col-sm-3 text-right" id="second_interest"
                                         name="second_interest">
                                     <option value="">------------------------</option>
@@ -336,9 +353,10 @@
                                             selected
                                     {% endif %}>核能科学与工程
                                     </option>
-                                    <option value="裂变能科学与工程" {% if profile_form.second_interest.value == '裂变能科学与工程' %}
+                                    <option value="裂变能科学与工程"
+                                            {% if profile_form.second_interest.value == '裂变能科学与工程' %}
                                             selected
-                                    {% endif %}>裂变能科学与工程
+                                            {% endif %}>裂变能科学与工程
                                     </option>
                                     <option value="核聚变与等离子物理"
                                             {% if profile_form.second_interest.value == '核聚变与等离子物理' %}
@@ -457,7 +475,7 @@
                         <h5 class="modal-title" id="fileModalLabel">提交文件</h5>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="/upload/" enctype="multipart/form-data">
+                        <form method="post" action="/upload/" enctype="multipart/form-data" id="file_upload_form">
                             {% csrf_token %}
                             <div class="from-group row">
                                 <label class="col-sm-3 text-right">个人陈述</label>
@@ -496,40 +514,50 @@
     </main>
 {% endblock %}
 
-{% block script %}
-    $(document).ready(function() {
-    $('[name=fund_applied]').change(function() {
-    if (this.value == '是') {
-    $('#fund_application_text').prop("disabled", false);
-    }
-    else if (this.value == '否') {
-    $('#fund_application_text').prop("disabled", true);
-    }
-    });
+{% block extrascript %}
+    <script>
+        $(document).ready(function () {
+            $('[name=fund_applied]').change(function () {
+                    if (this.value == '是') {
+                        $('#fund_application_text').prop("disabled", false);
+                    }
+                    else if (this.value == '否') {
+                        $('#fund_application_text').prop("disabled", true);
+                    }
+                }
+            );
 
-    $('#is_confirmed').change(function() {
-    if (this.checked) {
-    $('#profile_btn').html('提交');
-    $('#is_confirmed').prop('value', '是');
-    }
-    else {
-    $('#profile_btn').html('暂存');
-    $('#is_confirmed').prop('value', '否');
-    }
-    });
+            $('#is_confirmed').change(function () {
+                    if (this.checked) {
+                        $('#profile_btn').html('提交');
+                        $('#is_confirmed').prop('value', '是');
+                    }
+                    else {
+                        $('#profile_btn').html('暂存');
+                        $('#is_confirmed').prop('value', '否');
+                    }
+                }
+            );
 
-    if ('{{ profile_form.is_confirmed.value }}' == '是') {
-    $('#profile_form :input').prop('disabled', true);
-    };
-    });
+            if ('{{ profile_form.is_confirmed.value }}' == '是') {
+                $('#profile_form :input').prop('disabled', true);
+            }
+            ;
 
-    $('#is_confirmed').change(function () {
-    if (this.checked) {
-    $('#profile_form :input').prop('required', true);
-    }
-    else {
-    $('#profile_form :input').prop('required', false);
-    }
-    });
+            $('#is_confirmed').change(function () {
+                    if (this.checked) {
+                        $('#profile_form :input').prop('required', true);
+                    }
+                    else {
+                        $('#profile_form :input').prop('required', false);
+                    }
+                }
+            );
 
+            if ("{{ submission_over }}" == "True") {
+                $('#profile_form :input').prop('disabled', true);
+                $('#file_upload_form :input').prop('disabled', true);
+            }
+        });
+    </script>
 {% endblock %}
