@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 80px;
@@ -19,3 +24,4 @@ body {
     line-height: 25px;
     background-color: rgb(35, 35, 35);
 }
+

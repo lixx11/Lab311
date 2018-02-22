@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta>{% block meta %}{% endblock %}</meta>
+    <meta>
+    {% block meta %}{% endblock %}
+    </meta>
     <title>{% block title %}{% endblock %}</title>
     {% block extrahead %}{% endblock %}
     <link rel="stylesheet" href="{% static "css/extra.css" %}"/>
@@ -12,7 +14,7 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
-        <a class="navbar-brand" href="#">清华大学核学科夏令营</a>
+        <a class="navbar-brand" href="{{ WEBSITE }}">清华大学核学科夏令营</a>
         <div class="text-info">
             {% if profile_form.name.value %}
                 欢迎{{ profile_form.name.value|default_if_none:"同学" }}，
@@ -51,7 +53,6 @@
     })
     {% block script %}{% endblock %}
 </script>
-
 
 </body>
 </html>
