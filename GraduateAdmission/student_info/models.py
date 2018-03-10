@@ -79,6 +79,11 @@ class Profile(models.Model):
     is_confirmed = models.CharField(verbose_name='确认提交', choices=yes_or_no_choices, max_length=128, default='否',
                                     blank=True)
 
+    # 审核结果
+    check_choices = (('未审核', '未审核'), ('通过', '通过'), ('不通过', '不通过'))
+    check_status = models.CharField(verbose_name='审核结果', choices=check_choices, max_length=128, default='未审核',
+                                    blank=True, null=True)
+
     class Meta:
         verbose_name = '调剂信息'
         verbose_name_plural = '所有调剂信息'
