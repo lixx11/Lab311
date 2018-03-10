@@ -61,7 +61,7 @@ def download_profile_view(request):
     download_fields_dict.pop('user')
     download_fields = list(download_fields_dict.keys())
     response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format("调剂表".encode('utf8').decode('ISO-8859-1'))
+    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format("form".encode('utf8').decode('ISO-8859-1'))
     db = settings.DATABASES['default']['NAME']
     con = sqlite3.connect(db)
     df = pd.read_sql_query("SELECT * from student_info_profile", con)
