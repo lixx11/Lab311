@@ -6,6 +6,7 @@ from .forms import ProfileForm, FileUploadForm
 from .models import Profile
 import datetime
 from django.conf import settings
+from .info2pdf import info2pdf
 
 
 # Create your views here.
@@ -34,10 +35,11 @@ def submit_profile(request):
             return HttpResponse('调剂信息已确认，无法修改')
 
         form = ProfileForm(request.POST)
+        update_fields = form.fields.keys()
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = user
-            profile.save()
+            profile.save(update_fields=update_fields)
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
             file_upload_form = FileUploadForm(instance=profile)
@@ -60,7 +62,7 @@ def submit_files(request):
         user = User.objects.get(username=username)
     except ObjectDoesNotExist:
         return redirect('/accounts/login')
-    if request.method == 'POST':
+    if request.method == 'POST' and 'personal_files' in request.FILES:
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
@@ -76,3 +78,36 @@ def submit_files(request):
             return HttpResponse(form.errors)
     else:
         return redirect('/profile')
+
+
+def download_form(request):
+    from .models import interest_choices
+    from django.core.files.storage import FileSystemStorage
+
+    try:
+        username = request.user.username
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return redirect('/accounts/login')
+    profile = Profile.objects.get(user=user)
+    interest_dict = {x[0]: x[1] for x in interest_choices}
+    interest_dict['None'] = ''
+    info = {'name': str(profile.name), 'id': str(profile.student_id),  # basic information
+            'score_politics': str(profile.politics), 'score_english': str(profile.english),  # scores
+            'score_third': str(profile.subject3_score), 'test_name_third': str(profile.subject3_name),
+            'score_prof': str(profile.subject_major_score), 'test_name_prof': str(profile.subject_major_name),
+            'score_total': str(profile.total_score),
+            'orignial_target_major': str(profile.first_institute) + '-' + str(profile.first_major),  # targets
+            'target_1': interest_dict[str(profile.interest1)],
+            'target_2': interest_dict[str(profile.interest2)],
+            'target_3': interest_dict[str(profile.interest3)],
+            'target_4': interest_dict[str(profile.interest4)],
+            'target_5': interest_dict[str(profile.interest5)],
+            'chosen_test_name': str(profile.exam_subject)}
+    info2pdf('/tmp/form-%s.pdf' % user, info=info)
+
+    fs = FileSystemStorage("/tmp")
+    with fs.open("form-%s.pdf" % user) as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'filename="form-%s.pdf"' % user
+        return response

@@ -2,6 +2,31 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+# 志愿
+interest_choices = (
+    (
+        '核能',
+        '核能方向 - 核能与核技术工程（085226）- 清华本部'
+    ),
+    (
+        '核燃料',
+        '核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部'
+    ),
+    (
+        '核技术',
+        '核技术方向 - 核能与核技术工程（085226）- 清华本部'
+    ),
+    (
+        '公共安全',
+        '公共安全 - 安全工程（085224） - 深圳研究生院',
+    ),
+    (
+        '核能安全',
+        '核能安全 - 安全工程（085224） - 深圳研究生院',
+    ),
+)
+
+
 # Create your models here.
 class Profile(models.Model):
     # 基本信息
@@ -29,29 +54,6 @@ class Profile(models.Model):
     subject_major_score = models.IntegerField(verbose_name='专业课成绩', blank=True, null=True)
     total_score = models.IntegerField(verbose_name='总分', blank=True, null=True)
 
-    # 志愿
-    interest_choices = (
-        (
-            '核能',
-            '核能方向 - 核能与核技术工程（085226）- 清华本部'
-        ),
-        (
-            '核燃料',
-            '核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部'
-        ),
-        (
-            '核技术',
-            '核技术方向 - 核能与核技术工程（085226）- 清华本部'
-        ),
-        (
-            '公共安全',
-            '公共安全 - 安全工程（085224） - 深圳研究生院',
-        ),
-        (
-            '核能安全',
-            '核能安全 - 安全工程（085224） - 深圳研究生院',
-        ),
-    )
     interest1 = models.CharField(verbose_name='第一志愿', choices=interest_choices, max_length=8, blank=True, null=True)
     interest2 = models.CharField(verbose_name='第二志愿', choices=interest_choices, max_length=8, blank=True, null=True)
     interest3 = models.CharField(verbose_name='第三志愿', choices=interest_choices, max_length=8, blank=True, null=True)

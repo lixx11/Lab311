@@ -38,7 +38,7 @@
                                      {% endif %}; width: 100%">
                     </div>
                     <div class="col-md-2">
-                        <a href="#"><img id="wait-result" src="/static/img/fi-flag.svg"
+                        <a href="/download_form/"><img id="wait-result" src="/static/img/fi-flag.svg"
                                          style="opacity: 0.5; width: 100%"></a>
                         <h6 class="text-center">下载打印表单</h6>
                     </div>
@@ -51,10 +51,10 @@
                         调剂信息提交已截止，请等候审核结果通知。
                     {% elif profile_form.is_confirmed.value != '是' %}
                         您信息尚未提交，请点击填表图标完成报名信息。
-                    {% elif not file_upload_form.files.value %}
+                    {% elif not file_upload_form.personal_files.value %}
                         您个人材料未上传，请点击传文件图标上传相关文件。
                     {% else %}
-                        报名信息与相关文件已成功提交，请等候审核结果通知。
+                        调剂信息与相关文件已成功提交，请等候审核结果通知。
                         <small>(在调剂信息提交截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
                     {% endif %}
                 </fieldset>
@@ -64,7 +64,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="profileModalLabel">报名信息
+                            <h5 class="modal-title" id="profileModalLabel">调剂信息
                                 {% if profile_form.is_confirmed.value == '是' %}
                                     （已提交，无法修改）
                                 {% endif %}</h5>
@@ -109,33 +109,39 @@
                                     <input type="text" class="form-control col-sm-3 text-right" id="major" name="major"
                                            value="{{ profile_form.major.value|default_if_none:'' }}">
                                 </div>
-{#                                <div class="form-group row align-items-center">#}
-{#                                    <label for="graduate_year" class="col-form-label col-sm-3 text-right">本科毕业时间：</label>#}
-{#                                    <input type="text" class="form-control col-sm-3 text-right" id="graduate_year"#}
-{#                                           name="graduate_year"#}
-{#                                           value="{{ profile_form.graduate_year.value|default_if_none:'' }}">#}
-{#                                </div>#}
                                 <div class="form-group row align-items-center">
-                                    <label for="first_institute" class="col-form-label col-sm-3 text-right">原报考院系：</label>
+                                    <label for="graduate_year"
+                                           class="col-form-label col-sm-3 text-right">本科毕业年份：</label>
+                                    <input type="number" class="form-control col-sm-3 text-right" id="graduate_year"
+                                           name="graduate_year"
+                                           value="{{ profile_form.graduate_year.value|default_if_none:'' }}">
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label for="first_institute"
+                                           class="col-form-label col-sm-3 text-right">原报考院系：</label>
                                     <input type="text" class="form-control col-sm-3 text-right" id="first_institute"
                                            name="first_institute"
                                            value="{{ profile_form.first_institute.value|default_if_none:'' }}">
                                     <label for="first_major" class="col-form-label col-sm-2 text-right">原报考专业：</label>
-                                    <input type="text" class="form-control col-sm-3 text-right" id="first_major" name="first_major"
+                                    <input type="text" class="form-control col-sm-3 text-right" id="first_major"
+                                           name="first_major"
                                            value="{{ profile_form.first_major.value|default_if_none:'' }}">
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-form-label col-sm-6 text-right">是否参加原报考院系复试：</label>
                                     <div class="col-sm-1">
-                                        <input type="radio" name="exam_for_first_institute" value="是" id="exam_for_first_institute_yes"
+                                        <input type="radio" name="exam_for_first_institute" value="是"
+                                               id="exam_for_first_institute_yes"
                                                 {% if profile_form.exam_for_first_institute.value == '是' %}
                                                checked
                                                 {% endif %}>
                                         <label for="exam_for_first_institute_yes" class="col-form-label">是</label>
                                     </div>
                                     <div class="col-sm-1">
-                                        <input type="radio" name="exam_for_first_institute" value="否" id="exam_for_first_institute_no"
-                                                {% if profile_form.exam_for_first_institute.value == '否' %} checked {% endif %}>
+                                        <input type="radio" name="exam_for_first_institute" value="否"
+                                               id="exam_for_first_institute_no"
+                                                {% if profile_form.exam_for_first_institute.value == '否' %}
+                                               checked {% endif %}>
                                         <label for="exam_for_first_institute_no" class="col-form-label">否</label>
                                     </div>
                                 </div>
@@ -152,18 +158,26 @@
                                 <div class="form-group row align-items-center">
                                     <label for="subject3_name" class="col-form-label col-sm-3 text-right">科目三名称：</label>
                                     <input type="text" class="form-control col-sm-3 text-right" id="subject3_name"
-                                           name="subject3_name" value="{{ profile_form.subject3_name.value|default:'' }}">
-                                    <label for="subject3_score" class="col-form-label col-sm-2 text-right">科目三成绩：</label>
+                                           name="subject3_name"
+                                           value="{{ profile_form.subject3_name.value|default:'' }}">
+                                    <label for="subject3_score"
+                                           class="col-form-label col-sm-2 text-right">科目三成绩：</label>
                                     <input type="number" class="form-control col-sm-3 text-right" id="subject3_score"
-                                           name="subject3_score" value="{{ profile_form.subject3_score.value|default:'' }}">
+                                           name="subject3_score"
+                                           value="{{ profile_form.subject3_score.value|default:'' }}">
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label for="subject_major_name" class="col-form-label col-sm-3 text-right">专业课名称：</label>
+                                    <label for="subject_major_name"
+                                           class="col-form-label col-sm-3 text-right">专业课名称：</label>
                                     <input type="text" class="form-control col-sm-3 text-right" id="subject_major_name"
-                                           name="subject_major_name" value="{{ profile_form.subject_major_name.value|default:'' }}">
-                                    <label for="subject_major_score" class="col-form-label col-sm-2 text-right">专业课成绩：</label>
-                                    <input type="number" class="form-control col-sm-3 text-right" id="subject_major_score"
-                                           name="subject_major_score" value="{{ profile_form.subject_major_score.value|default:'' }}">
+                                           name="subject_major_name"
+                                           value="{{ profile_form.subject_major_name.value|default:'' }}">
+                                    <label for="subject_major_score"
+                                           class="col-form-label col-sm-2 text-right">专业课成绩：</label>
+                                    <input type="number" class="form-control col-sm-3 text-right"
+                                           id="subject_major_score"
+                                           name="subject_major_score"
+                                           value="{{ profile_form.subject_major_score.value|default:'' }}">
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label for="total_score" class="col-form-label col-sm-3 text-right">总分：</label>
@@ -177,36 +191,41 @@
                                     <select class="form-control col-sm-8 text-right no-required" id="interest1"
                                             name="interest1">
                                         <option value=""
-                                            {% if not profile_form.interest1.value %}
+                                                {% if not profile_form.interest1.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
                                         <option value="核能"
-                                            {% if profile_form.interest1.value == '核能' %}
+                                                {% if profile_form.interest1.value == '核能' %}
                                                 selected
-                                            {% endif %}>
-                                            核能方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核能方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核燃料"
-                                            {% if profile_form.interest1.value == '核燃料' %}
+                                                {% if profile_form.interest1.value == '核燃料' %}
                                                 selected
-                                            {% endif %}>
-                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核技术"
-                                            {% if profile_form.interest1.value == '核技术' %}
+                                                {% if profile_form.interest1.value == '核技术' %}
                                                 selected
-                                            {% endif %}>
-                                            核技术方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核技术方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="公共安全"
-                                            {% if profile_form.interest1.value == '公共安全' %}
+                                                {% if profile_form.interest1.value == '公共安全' %}
                                                 selected
-                                            {% endif %}>
-                                            公共安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            公共安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                         <option value="核能安全"
-                                            {% if profile_form.interest1.value == '核能安全' %}
+                                                {% if profile_form.interest1.value == '核能安全' %}
                                                 selected
-                                            {% endif %}>
-                                            核能安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            核能安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -214,41 +233,47 @@
                                     <select class="form-control col-sm-8 text-right" id="exam_subject"
                                             name="exam_subject">
                                         <option value=""
-                                            {% if not profile_form.exam_subject.value %}
+                                                {% if not profile_form.exam_subject.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
-                                        <option value="安全系统"
-                                            {% if profile_form.exam_subject.value == '安全系统' %}
+                                        <option value="安全系统" class="exam_subject_option_set1"
+                                                {% if profile_form.exam_subject.value == '安全系统' %}
                                                 selected
-                                            {% endif %}>
-                                            安全系统工程</option>
+                                                {% endif %}>
+                                            安全系统工程
+                                        </option>
                                         <option value="热工"
-                                            {% if profile_form.exam_subject.value == '热工' %}
+                                                {% if profile_form.exam_subject.value == '热工' %}
                                                 selected
-                                            {% endif %}>
-                                            热工基础</option>
-                                        <option value="力学"
-                                            {% if profile_form.exam_subject.value == '力学' %}
+                                                {% endif %}>
+                                            热工基础
+                                        </option>
+                                        <option value="力学" class="exam_subject_option_set2"
+                                                {% if profile_form.exam_subject.value == '力学' %}
                                                 selected
-                                            {% endif %}>
-                                            力学基础</option>
-                                        <option value="核物理"
-                                            {% if profile_form.exam_subject.value == '核物理' %}
+                                                {% endif %}>
+                                            力学基础
+                                        </option>
+                                        <option value="核物理" class="exam_subject_option_set2"
+                                                {% if profile_form.exam_subject.value == '核物理' %}
                                                 selected
-                                            {% endif %}>
-                                            核物理</option>
-                                        <option value="辐射防护"
-                                            {% if profile_form.exam_subject.value == '辐射防护' %}
+                                                {% endif %}>
+                                            核物理
+                                        </option>
+                                        <option value="辐射防护" class="exam_subject_option_set2"
+                                                {% if profile_form.exam_subject.value == '辐射防护' %}
                                                 selected
-                                            {% endif %}>
-                                            辐射防护</option>
-                                        <option value="信号与系统"
-                                            {% if profile_form.exam_subject.value == '信号与系统' %}
+                                                {% endif %}>
+                                            辐射防护
+                                        </option>
+                                        <option value="信号与系统" class="exam_subject_option_set2"
+                                                {% if profile_form.exam_subject.value == '信号与系统' %}
                                                 selected
-                                            {% endif %}>
-                                            信号与系统</option>
+                                                {% endif %}>
+                                            信号与系统
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -256,36 +281,41 @@
                                     <select class="form-control col-sm-8 text-right no-required" id="interest2"
                                             name="interest2">
                                         <option value=""
-                                            {% if not profile_form.interest2.value %}
+                                                {% if not profile_form.interest2.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
                                         <option value="核能"
-                                            {% if profile_form.interest2.value == '核能' %}
+                                                {% if profile_form.interest2.value == '核能' %}
                                                 selected
-                                            {% endif %}>
-                                            核能方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核能方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核燃料"
-                                            {% if profile_form.interest2.value == '核燃料' %}
+                                                {% if profile_form.interest2.value == '核燃料' %}
                                                 selected
-                                            {% endif %}>
-                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核技术"
-                                            {% if profile_form.interest2.value == '核技术' %}
+                                                {% if profile_form.interest2.value == '核技术' %}
                                                 selected
-                                            {% endif %}>
-                                            核技术方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核技术方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="公共安全"
-                                            {% if profile_form.interest2.value == '公共安全' %}
+                                                {% if profile_form.interest2.value == '公共安全' %}
                                                 selected
-                                            {% endif %}>
-                                            公共安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            公共安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                         <option value="核能安全"
-                                            {% if profile_form.interest2.value == '核能安全' %}
+                                                {% if profile_form.interest2.value == '核能安全' %}
                                                 selected
-                                            {% endif %}>
-                                            核能安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            核能安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -293,36 +323,41 @@
                                     <select class="form-control col-sm-8 text-right no-required" id="interest3"
                                             name="interest3">
                                         <option value=""
-                                            {% if not profile_form.interest3.value %}
+                                                {% if not profile_form.interest3.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
                                         <option value="核能"
-                                            {% if profile_form.interest3.value == '核能' %}
+                                                {% if profile_form.interest3.value == '核能' %}
                                                 selected
-                                            {% endif %}>
-                                            核能方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核能方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核燃料"
-                                            {% if profile_form.interest3.value == '核燃料' %}
+                                                {% if profile_form.interest3.value == '核燃料' %}
                                                 selected
-                                            {% endif %}>
-                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核技术"
-                                            {% if profile_form.interest3.value == '核技术' %}
+                                                {% if profile_form.interest3.value == '核技术' %}
                                                 selected
-                                            {% endif %}>
-                                            核技术方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核技术方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="公共安全"
-                                            {% if profile_form.interest3.value == '公共安全' %}
+                                                {% if profile_form.interest3.value == '公共安全' %}
                                                 selected
-                                            {% endif %}>
-                                            公共安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            公共安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                         <option value="核能安全"
-                                            {% if profile_form.interest3.value == '核能安全' %}
+                                                {% if profile_form.interest3.value == '核能安全' %}
                                                 selected
-                                            {% endif %}>
-                                            核能安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            核能安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -330,36 +365,41 @@
                                     <select class="form-control col-sm-8 text-right no-required" id="interest4"
                                             name="interest4">
                                         <option value=""
-                                            {% if not profile_form.interest4.value %}
+                                                {% if not profile_form.interest4.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
                                         <option value="核能"
-                                            {% if profile_form.interest4.value == '核能' %}
+                                                {% if profile_form.interest4.value == '核能' %}
                                                 selected
-                                            {% endif %}>
-                                            核能方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核能方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核燃料"
-                                            {% if profile_form.interest4.value == '核燃料' %}
+                                                {% if profile_form.interest4.value == '核燃料' %}
                                                 selected
-                                            {% endif %}>
-                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核技术"
-                                            {% if profile_form.interest4.value == '核技术' %}
+                                                {% if profile_form.interest4.value == '核技术' %}
                                                 selected
-                                            {% endif %}>
-                                            核技术方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核技术方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="公共安全"
-                                            {% if profile_form.interest4.value == '公共安全' %}
+                                                {% if profile_form.interest4.value == '公共安全' %}
                                                 selected
-                                            {% endif %}>
-                                            公共安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            公共安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                         <option value="核能安全"
-                                            {% if profile_form.interest4.value == '核能安全' %}
+                                                {% if profile_form.interest4.value == '核能安全' %}
                                                 selected
-                                            {% endif %}>
-                                            核能安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            核能安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -367,36 +407,41 @@
                                     <select class="form-control col-sm-8 text-right no-required" id="interest5"
                                             name="interest5">
                                         <option value=""
-                                            {% if not profile_form.interest5.value %}
+                                                {% if not profile_form.interest5.value %}
                                                 selected
-                                            {% endif %}>
+                                                {% endif %}>
                                             ---------------------------------------------------------------------
                                         </option>
                                         <option value="核能"
-                                            {% if profile_form.interest5.value == '核能' %}
+                                                {% if profile_form.interest5.value == '核能' %}
                                                 selected
-                                            {% endif %}>
-                                            核能方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核能方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核燃料"
-                                            {% if profile_form.interest5.value == '核燃料' %}
+                                                {% if profile_form.interest5.value == '核燃料' %}
                                                 selected
-                                            {% endif %}>
-                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="核技术"
-                                            {% if profile_form.interest5.value == '核技术' %}
+                                                {% if profile_form.interest5.value == '核技术' %}
                                                 selected
-                                            {% endif %}>
-                                            核技术方向 - 核能与核技术工程（085226）- 清华本部</option>
+                                                {% endif %}>
+                                            核技术方向 - 核能与核技术工程（085226）- 清华本部
+                                        </option>
                                         <option value="公共安全"
-                                            {% if profile_form.interest5.value == '公共安全' %}
+                                                {% if profile_form.interest5.value == '公共安全' %}
                                                 selected
-                                            {% endif %}>
-                                            公共安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            公共安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                         <option value="核能安全"
-                                            {% if profile_form.interest5.value == '核能安全' %}
+                                                {% if profile_form.interest5.value == '核能安全' %}
                                                 selected
-                                            {% endif %}>
-                                            核能安全 - 安全工程（085224） - 深圳研究生院</option>
+                                                {% endif %}>
+                                            核能安全 - 安全工程（085224） - 深圳研究生院
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="dropdown-divider"></div>
@@ -434,7 +479,8 @@
                                     <label class="col-sm-3 text-right">个人材料</label>
                                     <div class="col-sm-8">
                                         <label class="text-left">{{ file_upload_form.personal_files.value|default_if_none:'未提交'|split:'/'|last }}</label>
-                                        <input type="file" class="filestyle" id="personal_files" name="personal_files" data-text="浏览...">
+                                        <input type="file" class="filestyle" id="personal_files" name="personal_files"
+                                               data-text="浏览...">
                                     </div>
                                 </div>
                                 <div class="dropdown-divider"></div>
@@ -452,15 +498,35 @@
 {% block extrascript %}
     <script>
         $(document).ready(function () {
-            $('[name=fund_applied]').change(function () {
-                    if (this.value == '是') {
-                        $('#fund_application_text').prop("disabled", false);
-                    }
-                    else if (this.value == '否') {
-                        $('#fund_application_text').prop("disabled", true);
-                    }
+            jQuery.fn.toggleOption = function (show) {
+                jQuery(this).toggle(show);
+                if (show) {
+                    if (jQuery(this).parent('span.toggleOption').length)
+                        jQuery(this).unwrap();
+                } else {
+                    if (jQuery(this).parent('span.toggleOption').length == 0)
+                        jQuery(this).wrap('<span class="toggleOption" style="display: none;" />');
                 }
-            );
+            };
+
+            $('#interest1').change(function () {
+                if ($('#interest1').val() == '核能') {
+                    $('.exam_subject_option_set1').toggleOption(false);
+                    $('.exam_subject_option_set2').toggleOption(true);
+                } else if ($('#interest1').val() == '核燃料') {
+                    $('.exam_subject_option_set1').toggleOption(false);
+                    $('.exam_subject_option_set2').toggleOption(true);
+                } else if ($('#interest1').val() == '核技术') {
+                    $('.exam_subject_option_set1').toggleOption(false);
+                    $('.exam_subject_option_set2').toggleOption(true);
+                } else if ($('#interest1').val() == '公共安全') {
+                    $('.exam_subject_option_set2').toggleOption(false);
+                    $('.exam_subject_option_set1').toggleOption(true);
+                } else if ($('#interest1').val() == '核能安全') {
+                    $('.exam_subject_option_set2').toggleOption(false);
+                    $('.exam_subject_option_set1').toggleOption(true);
+                }
+            });
 
             $('#is_confirmed').change(function () {
                     if (this.checked) {
@@ -477,7 +543,6 @@
             if ('{{ profile_form.is_confirmed.value }}' == '是') {
                 $('#profile_form :input').prop('disabled', true);
             }
-            ;
 
             $('#is_confirmed').change(function () {
                     if (this.checked) {
@@ -494,6 +559,7 @@
                 $('#profile_form :input').prop('disabled', true);
                 $('#file_upload_form :input').prop('disabled', true);
             }
-        });
+        })
+        ;
     </script>
 {% endblock %}
