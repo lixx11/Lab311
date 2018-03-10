@@ -14,7 +14,7 @@
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
 
 {% block branding %}
-    <h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学核学科夏令营管理后台</a></h1>
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学工程物理系调剂信息填报系统后台</a></h1>
 {% endblock %}
 
 {% if not is_popup %}
@@ -32,7 +32,7 @@
     <div id="content">
         <h1>发送邮件</h1>
         <div id="content-main">
-            <form enctype="multipart/form-data" action="/admin/camper/profile/send_email/" method="post">
+            <form enctype="multipart/form-data" action="/admin/student_info/profile/send_email/" method="post">
                 {% csrf_token %}
                 <div>
                     <fieldset class="module">
