@@ -31,10 +31,10 @@ OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'month': 3, 'day': 14}
+DEADLINE = {'month': 3, 'day': 14, 'hour': 12}
 
 # website
-WEBSITE = "http://127.0.0.1:8000"
+WEBSITE = "127.0.0.1:8000"
 YEAR = '2018'  # IMPORTANT!!!
 
 # for deployment
@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +93,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'student_info.context_processors.global_settings',
             ],
             'builtins': [
                 'student_info.filters'
