@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
 # django email for registration
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
@@ -41,7 +41,6 @@ YEAR = '2018'  # IMPORTANT!!!
 if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     ALLOWED_HOSTS = ['*', ]
     X_FRAME_OPTIONS = 'DENY'
