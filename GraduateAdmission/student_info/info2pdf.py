@@ -3,16 +3,19 @@ from reportlab.lib import fonts, colors
 from reportlab.lib.pagesizes import A4, inch
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from reportlab.lib.enums import TA_RIGHT, TA_CENTER
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+
+import os
+
 
 ###########################################################
 # adding Chinese font
 ###########################################################
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-fontPath = '/Users/lixuanxuan/repository/Lab311/GraduateAdmission/student_info/fonts/'
-pdfmetrics.registerFont(TTFont('songti', fontPath+'simsun.ttc'))
-pdfmetrics.registerFont(TTFont('heiti', fontPath+'simhei.ttf'))
+fontPath = os.path.join(os.path.dirname(__file__), 'fonts')
+pdfmetrics.registerFont(TTFont('songti', os.path.join(fontPath, 'simsun.ttc')))
+pdfmetrics.registerFont(TTFont('heiti', os.path.join(fontPath, 'simhei.ttf')))
 
 ###########################################################
 # predefine some text style
