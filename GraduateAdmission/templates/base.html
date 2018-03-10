@@ -14,7 +14,7 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark justify-content-between">
-        <a class="navbar-brand" href="{{ WEBSITE }}">清华大学工程物理系调剂信息填报系统</a>
+        <a class="navbar-brand" href="http://{{ WEBSITE }}">清华大学工程物理系调剂信息填报系统</a>
         <div class="text-info">
             {% if profile_form.name.value %}
                 欢迎{{ profile_form.name.value|default_if_none:"同学" }}，

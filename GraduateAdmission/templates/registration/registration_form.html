@@ -54,7 +54,8 @@
         var now = new Date();
         var month = now.getMonth() + 1; //map to range 1-12
         var day = now.getDate();
-        if (month >= parseInt("{{ DEADLINE.month }}") && day >= parseInt("{{ DEADLINE.day }}")) {
+        var hour = now.getHours();
+        if (month >= parseInt("{{ DEADLINE.month }}") && day >= parseInt("{{ DEADLINE.day }}") && hour >= parseInt("{{ DEADLINE.hour }}")) {
             alert("报名已截止，即将返回登陆页");
             var url = window.location.href;
             var arr = url.split("/");

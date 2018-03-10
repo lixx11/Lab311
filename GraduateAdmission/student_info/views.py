@@ -22,7 +22,8 @@ def submit_profile(request):
         return redirect('/accounts/login')
 
     now = datetime.datetime.now()
-    if now.month >= settings.DEADLINE['month'] and now.day >= settings.DEADLINE['day']:
+    if now.month >= settings.DEADLINE['month'] and now.day >= settings.DEADLINE['day'] and now.hour >= \
+            settings.DEADLINE['hour']:
         submission_over = True
     else:
         submission_over = False
