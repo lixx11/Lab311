@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <main role="main" class="container col-md-4" style="height: 100%">
+        <div class="row align-items-center justify-content-center" style="height: 100%">
+            <form method="post" action="">
+                {% csrf_token %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <script>alert("{{ error }}")</script>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="form-group row">
+                    <img src="/static/img/atom.png" style="width: 40%; height: 40%" class="rounded d-block mx-auto">
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="用户名"
+                               data-toggle="tooltip" title="字母和数字组合" data-placement="right" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="邮箱"
+                               data-toggle="tooltip" title="请使用常用邮箱" data-placement="right" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="password" class="form-control" id="password1" name="password1" placeholder="密码"
+                               data-toggle="tooltip" title="最少8个字符，不能全是数字" data-placement="right" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="password" class="form-control" id="password2" name="password2" placeholder="再次输入密码"
+                               data-toggle="tooltip" title="再次输入密码" data-placement="right" required>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary btn-block" type="submit">注册</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        var now = new Date();
+        var month = now.getMonth() + 1; //map to range 1-12
+        var day = now.getDate();
+        if (month >= parseInt("{{ DEADLINE.month }}") && day >= parseInt("{{ DEADLINE.day }}")) {
+            alert("报名已截止，即将返回登陆页");
+            var url = window.location.href;
+            var arr = url.split("/");
+            var index_url = arr[0] + "//" + arr[2]
+            window.location.href = index_url;
+        }
+    </script>
+{% endblock %}

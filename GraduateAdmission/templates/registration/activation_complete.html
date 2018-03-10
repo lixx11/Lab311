@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Account Activated" %}{% endblock %}
+
+{% block content %}
+    <script>
+        alert("Your account is now activated.");
+        var url = window.location.href;
+        var arr = url.split("/");
+        var index_url = arr[0] + "//" + arr[2]
+        window.location.href = index_url;
+    </script>
+{% endblock %}
+
+
+{% comment %}
+**registration/activation_complete.html**
+
+Used after successful account activation. This template has no context
+variables of its own, and should simply inform the user that their
+account is now active.
+{% endcomment %}

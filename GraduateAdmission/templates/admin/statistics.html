@@ -1,0 +1,120 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}"/>
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">清华大学核学科夏令营管理后台</a></h1>
+{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            &rsaquo; <a
+                href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+            &rsaquo; <a href="#">统计信息</a>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin: 20px;">
+            <h4>基本信息</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">注册人数</th>
+                    <th scope="col">完成填表</th>
+                    <th scope="col">提交文件</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ nb_registraters }}</td>
+                    <td>{{ nb_complete_form }}</td>
+                    <td>{{ nb_fileupload }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin: 20px;">
+            <h4>初审结果</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">管理员</th>
+                    <th scope="col">待审核</th>
+                    <th scope="col">已通过</th>
+                    <th scope="col">未通过</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>工物系</td>
+                    <td>{{ nb_dep_nocheck }}</td>
+                    <td>{{ nb_dep_pass }}</td>
+                    <td>{{ nb_dep_fail }}</td>
+                </tr>
+                <tr>
+                    <td>核研院</td>
+                    <td>{{ nb_inet_nocheck }}</td>
+                    <td>{{ nb_inet_pass }}</td>
+                    <td>{{ nb_inet_fail }}</td>
+                </tr>
+                <tr>
+                    <td>终审</td>
+                    <td>{{ nb_root_nocheck }}</td>
+                    <td>{{ nb_root_pass }}</td>
+                    <td>{{ nb_root_fail }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin: 20px;">
+            <h4>复试结果</h4>
+            <table class="table table-secondary text-center">
+                <thead>
+                <tr>
+                    <th scope="col">院系</th>
+                    <th scope="col">A1</th>
+                    <th scope="col">A2</th>
+                    <th scope="col">B</th>
+                    <th scope="col">C</th>
+                    <th scope="col">未审核</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>工物系</td>
+                    <td>{{ nb_dep_retest_A1 }}</td>
+                    <td>{{ nb_dep_retest_A2 }}</td>
+                    <td>{{ nb_dep_retest_B }}</td>
+                    <td>{{ nb_dep_retest_C }}</td>
+                    <td>{{ nb_dep_retest_nocheck }}</td>
+                </tr>
+                <tr>
+                    <td>核研院</td>
+                    <td>{{ nb_inet_retest_A1 }}</td>
+                    <td>{{ nb_inet_retest_A2 }}</td>
+                    <td>{{ nb_inet_retest_B }}</td>
+                    <td>{{ nb_inet_retest_C }}</td>
+                    <td>{{ nb_inet_retest_nocheck }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+NAME="SummerSchool"
+BIND=unix:/tmp/summer_school.sock
+DJANGO_SETTINGS_MODULE=summer_school.settings
+DJANGO_WSGI_MODULE=summer_school.wsgi
+LOG_LEVEL=debug
+
+
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+
+exec gunicorn ${DJANGO_WSGI_MODULE}:application \
+  --bind=$BIND \
+  --log-level=$LOG_LEVEL \
+  --log-file=-
