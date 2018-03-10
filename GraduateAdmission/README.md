@@ -32,8 +32,8 @@ pip install gunicorn
 server {
     listen 80; 
     server_name summer-school-server; 
-    access_log /var/log/summer_school_access.log;
-    error_log /var/log/summer_school_error.log;
+    access_log /var/log/graduate_admission_access.log;
+    error_log /var/log/graduate_admission_error.log;
     
     location = /favicon.ico {
         alias /path/to/favicon.ico;
@@ -42,7 +42,7 @@ server {
         alias /path/to/staticfiles/; 
     } 
     location / { 
-        proxy_pass http://unix:/tmp/summer_school.sock; 
+        proxy_pass http://unix:/tmp/graduate_admission.sock; 
     } 
 }
 ```
