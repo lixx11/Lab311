@@ -8,6 +8,7 @@ pip install django
 pip install django-registration-redux
 pip install pandas
 pip install openpyxl
+pip install reportlab
 # setup database
 python SummerSchool/manage.py migrate
 # run server in development mode
