@@ -1,4 +1,4 @@
-# 核学科夏令营网站
+# 清华大学工程物理系硕士研究生复试调剂信息填报系统
 
 ## 如何运行网站（开发模式）
 
@@ -10,15 +10,15 @@ pip install pandas
 pip install openpyxl
 pip install reportlab
 # setup database
-python SummerSchool/manage.py migrate
+python GraduateAdmission/manage.py migrate
 # run server in development mode
-python SummerSchool/manage.py runserver
+python GraduateAdmission/manage.py runserver
 ```
 
 ## 如何部署
 * collect static files
 ```
-python SummerSchool/manage.py collectstatic
+python GraduateAdmission/manage.py collectstatic
 ```
 
 * setup gunicorn
@@ -32,7 +32,7 @@ pip install gunicorn
 # example conf
 server {
     listen 80; 
-    server_name summer-school-server; 
+    server_name graduate-admission-server; 
     access_log /var/log/graduate_admission_access.log;
     error_log /var/log/graduate_admission_error.log;
     
@@ -41,6 +41,9 @@ server {
     }
     location /static/ { 
         alias /path/to/staticfiles/; 
+    } 
+    location /media/ { 
+        alias /path/to/media/; 
     } 
     location / { 
         proxy_pass http://unix:/tmp/graduate_admission.sock; 

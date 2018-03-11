@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
 # django email for registration
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
@@ -34,14 +34,13 @@ LOGIN_REDIRECT_URL = 'profile'
 DEADLINE = {'month': 3, 'day': 14, 'hour': 12}
 
 # website
-WEBSITE = "127.0.0.1:8000"
-YEAR = '2018'  # IMPORTANT!!!
+WEBSITE = os.getenv('DJANGO_WEBSITE', '127.0.0.1:8000')
+YEAR = int(os.getenv('DJANGO_YEAR', '2018'))
 
 # for deployment
 if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    CSRF_COOKIE_SECURE = True
     ALLOWED_HOSTS = ['*', ]
     X_FRAME_OPTIONS = 'DENY'
 else:

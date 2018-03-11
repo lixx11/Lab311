@@ -1,13 +1,16 @@
 #!/bin/bash
 
 NAME="GraduateAdmission"
-BIND=unix:/tmp/graduate_admission.sock
+BIND=unix:graduate_admission.sock
 DJANGO_SETTINGS_MODULE=graduate_admission.settings
 DJANGO_WSGI_MODULE=graduate_admission.wsgi
 LOG_LEVEL=debug
 
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export DJANGO_DEBUG=False
+export DJANGO_WEBSITE='localhost'
+export DJANGO_YEAR=2018
 
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=$BIND \

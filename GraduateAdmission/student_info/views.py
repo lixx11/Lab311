@@ -94,6 +94,9 @@ def download_form(request):
     interest_dict = {x[0]: x[1] for x in interest_choices}
     interest_dict['None'] = ''
     info = {'name': str(profile.name), 'id': str(profile.student_id),  # basic information
+            'university': str(profile.school), 'major': str(profile.major),
+            'graduation_time': str(profile.graduate_year), 'email': str(profile.user.email),
+            'mobile': str(profile.phone_number),
             'score_politics': str(profile.politics), 'score_english': str(profile.english),  # scores
             'score_third': str(profile.subject3_score), 'test_name_third': str(profile.subject3_name),
             'score_prof': str(profile.subject_major_score), 'test_name_prof': str(profile.subject_major_name),

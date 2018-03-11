@@ -31,7 +31,7 @@ OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'month': 2, 'day': 1}
+DEADLINE = {'month': 4, 'day': 1}
 
 # website
 WEBSITE = "http://127.0.0.1:8000"

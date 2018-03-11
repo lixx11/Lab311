@@ -7,18 +7,21 @@
                 <div class="row justify-content-center">
                     <div class="col-md-2 justify-content-center">
                         <a class="justify-content-center" href="#">
-                            <img id="sign-up" src="/static/img/fi-at-sign.svg" style="opacity: 1; width: 100%">
+                            <img id="sign-up" src="/static/img/fi-at-sign.svg"
+                                 data-toggle="modal" data-target="#noticeModal" style="opacity: 0.5; width: 100%">
                         </a>
-                        <h6 class="text-center">注册新用户</h6>
+                        <h6 class="text-center">调剂信息公告</h6>
                     </div>
                     <div class="col-md-2">
                         <img id="rigtharrow1" src="/static/img/fi-arrow-right.svg"
                              style="opacity: 1.0; width: 100%">
                     </div>
                     <div class="col-md-2">
-                        <a href="#"><img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
-                                         data-target="#profileModal"
-                                         style="opacity: {% if profile_form.is_confirmed.value == '是' %}1.0{% else %}0.5{% endif %}; width: 100%"></a>
+                        <a href="#">
+                            <img id="fill-form" src="/static/img/fi-clipboard-pencil.svg" data-toggle="modal"
+                                 data-target="#profileModal"
+                                 style="opacity: {% if profile_form.is_confirmed.value == '是' %}1.0{% else %}0.5{% endif %}; width: 100%">
+                        </a>
                         <h6 class="text-center">填写调剂信息</h6>
                     </div>
 
@@ -39,7 +42,7 @@
                     </div>
                     <div class="col-md-2">
                         <a href="/download_form/"><img id="wait-result" src="/static/img/fi-flag.svg"
-                                         style="opacity: 0.5; width: 100%"></a>
+                                                       style="opacity: 0.5; width: 100%"></a>
                         <h6 class="text-center">下载打印表单</h6>
                     </div>
                 </div>
@@ -50,7 +53,7 @@
                     {% if submission_over %}
                         调剂信息提交已截止，请等候审核结果通知。
                     {% elif profile_form.is_confirmed.value != '是' %}
-                        您信息尚未提交，请点击填表图标完成报名信息。
+                        请阅读调剂信息公告，并点击填表图标完成报名信息。
                     {% elif not file_upload_form.personal_files.value %}
                         您个人材料未上传，请点击传文件图标上传相关文件。
                     {% else %}
@@ -58,6 +61,107 @@
                         <small>(在调剂信息提交截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
                     {% endif %}
                 </fieldset>
+            </div>
+            <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="noticeModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="noticeModalLabel">调剂信息公告</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h5>一.接收调剂专业信息</h5>
+                            <table class="table">
+                                <tr>
+                                    <th>专业代码</th>
+                                    <th>专业名称</th>
+                                </tr>
+                                <tr>
+                                    <td>085224</td>
+                                    <td>安全工程</td>
+                                </tr>
+                                <tr>
+                                    <td>085226</td>
+                                    <td>核能与核技术工程</td>
+                                </tr>
+                            </table>
+                            <h5>二.调剂要求</h5>
+                            <p>
+                                调剂考生必须达到原报考专业的清华大学学科门类复试基本要求（理学总分320、工学总分310，政治50、外语50、数学一80、专业课80）
+                                ，方可在相同或相近专业之间进行校内调剂。考生原应试的统考科目必须与我系的统考科目一致，且业务课考试科目须相同或相近。即初试科目
+                                为外语、政治、数学一，专业课与我系相关，可以参加我系专业型硕士复试面试。优先考虑报考电机、热能、电子、自动化、材料等相关院系的考生。
+                            </p>
+                            <h5>三.日程安排</h5>
+                            <ol>
+                                <li>
+                                    一轮调剂
+                                    <ul>
+                                        <li>
+                                            报名时间：2018年3月14日上午12：00前
+                                        </li>
+                                        <li>
+                                            确认入围复试考核名单：2018年3月15日上午12：00前通知。
+                                        </li>
+                                        <li>
+                                            资格审查：2018年3月16日上午9：00-11：00（刘卿楼213）
+                                        </li>
+                                        <li>
+                                            复试时间、地点：笔试：3月16日下午（刘卿楼105）；面试：3月17日（刘卿楼219）
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    二轮调剂
+                                    <ul>
+                                        <li>
+                                            报名时间： 2018年3月20日上午12：00前
+                                        </li>
+                                        <li>
+                                            确认入围复试考核名单：2018年 3月20日下午17：00前通知。
+                                        </li>
+                                        <li>
+                                            资格审查：2018年3月21日上午9：00前（刘卿楼213）
+                                        </li>
+                                        <li>
+                                            复试时间、地点：笔试：面试：3月21日9：00（刘卿楼219）
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <h5>四.申请流程</h5>
+                            <ol>
+                                <li>
+                                    <b>报名方式</b><br/> 网上报名后系统生成的申请表请签字后于2018年3月16日上午12：00前交到工物系教学办公室刘卿楼213。
+                                </li>
+                                <li>
+                                    <b>资格审查需提交材料</b><br/>
+                                    考生须携带本人以下材料：
+                                    <ul>
+                                        <li>准考证</li>
+                                        <li>有效身份证件原件及一份复印件</li>
+                                        <li>毕业证书（应届生带学生证）原件及一份复印件</li>
+                                        <li>一张1寸免冠照片（体检表用）</li>
+                                        <li>考生自述（包括政治表现、外语水平、业务和科研能力、研究计划）</li>
+                                        <li>大学期间成绩单原件或档案中成绩单复印件（加盖档案单位红章）</li>
+                                    </ul>
+                                    不论是否录取，所交材料含成绩单一律不予退还。未进行资格审查或资格审查未通过的考生一律不予录取。
+                                </li>
+                            </ol>
+                            <h5>五.录取办法</h5>
+                            <p><b>复试内容</b><br/> 笔试，120分钟，100分；面试，每人20分钟，其中5分钟的自述，满分100分</p>
+                            <h5>六.其他</h5>
+                            <b>专业方向咨询联系人：</b>
+                            <ul>
+                                <li>核技术方向 赵自然 010-62792719（本部）</li>
+                                <li>核燃料方向 姜东军 010-62784518，13439383252，jiangdj@tsinghua.edu.cn（本部定向）</li>
+                                <li>核能方向 余纲林 010-62796092，13611106501，yuganglin@tsinghua.edu.cn（本部），
+                                    刘井泉 010-62794863，15010767679，jingquan@tsinghua.edu.cn（深圳研究生院）
+                                </li>
+                                <li>安全方向 翁文国 010-62796917，13401026512，wgweng@tsinghua.edu.cn（深圳研究生院）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
                  aria-hidden="true">
@@ -477,7 +581,7 @@
                                 {% csrf_token %}
                                 <div class="from-group row">
                                     <label class="col-sm-3 text-right">个人材料</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-8" data-toggle="tooltip" title="包括准考证、初始成绩单、毕业证、学位证（应届本科毕业生的学生证）、大学期间成绩单，个人简历、考生自述（包括政治表现、外语水平、业务和科研能力、研究计划），请打包上传">
                                         <label class="text-left">{{ file_upload_form.personal_files.value|default_if_none:'未提交'|split:'/'|last }}</label>
                                         <input type="file" class="filestyle" id="personal_files" name="personal_files"
                                                data-text="浏览...">
@@ -559,7 +663,20 @@
                 $('#profile_form :input').prop('disabled', true);
                 $('#file_upload_form :input').prop('disabled', true);
             }
+
+            $('#personal_files').change(function () {
+                var fUpload = $('#personal_files')[0].files[0];
+                if (fUpload != null) {
+                    var fMax = 1024 * 1024 * 10;
+                    if (fUpload.size > fMax) {
+                        alert('请勿上传超过50M的文件！')
+                        $('#upload_btn').prop('disabled', true);
+                    }
+                    else {
+                        $('#upload_btn').prop('disabled', false);
+                    }
+                }
+            });
         })
-        ;
     </script>
 {% endblock %}

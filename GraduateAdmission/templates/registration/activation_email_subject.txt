@@ -1,4 +1,4 @@
-账号激活 - 清华大学工程物理系研究生志愿调剂系统
+账号激活 - 清华大学工程物理系硕士研究生复试调剂信息填报系统
 
 {% comment %}
 **registration/activation_email_subject.txt**
