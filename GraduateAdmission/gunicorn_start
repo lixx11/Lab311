@@ -2,6 +2,7 @@
 
 NAME="GraduateAdmission"
 BIND=unix:graduate_admission.sock
+DJANGO_DEBUG=False
 DJANGO_SETTINGS_MODULE=graduate_admission.settings
 DJANGO_WSGI_MODULE=graduate_admission.wsgi
 LOG_LEVEL=debug
@@ -9,7 +10,7 @@ LOG_LEVEL=debug
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export DJANGO_DEBUG=False
-export DJANGO_WEBSITE='localhost'
+export DJANGO_WEBSITE='www1.ep.tsinghua.edu.cn:8000'
 export DJANGO_YEAR=2018
 
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
