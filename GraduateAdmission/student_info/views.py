@@ -82,7 +82,7 @@ def submit_files(request):
 
 
 def download_form(request):
-    from .models import interest_choices
+    from .models import interest_choices, exam_subject_choices
     from django.core.files.storage import FileSystemStorage
 
     try:
@@ -93,6 +93,7 @@ def download_form(request):
     profile = Profile.objects.get(user=user)
     interest_dict = {x[0]: x[1] for x in interest_choices}
     interest_dict['None'] = ''
+    subject_dict = {x[0]: x[1] for x in exam_subject_choices}
     info = {'name': str(profile.name), 'id': str(profile.student_id),  # basic information
             'university': str(profile.school), 'major': str(profile.major),
             'graduation_time': str(profile.graduate_year), 'email': str(profile.user.email),
@@ -107,7 +108,7 @@ def download_form(request):
             'target_3': interest_dict[str(profile.interest3)],
             'target_4': interest_dict[str(profile.interest4)],
             'target_5': interest_dict[str(profile.interest5)],
-            'chosen_test_name': str(profile.exam_subject)}
+            'chosen_test_name': subject_dict[profile.exam_subject]}
     info2pdf('/tmp/form-%s.pdf' % user, info=info)
 
     fs = FileSystemStorage("/tmp")

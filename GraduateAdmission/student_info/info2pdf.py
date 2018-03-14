@@ -73,7 +73,7 @@ def info2pdf(filename, info=info):
 
     data = [['', '', '', '', '', ''],
             ['考生姓名：', info['name'], '', '', '考生编号：', info['id']],
-            [info['university'], '', info['major'], '', '毕业时间：' + info['graduation_time'], ''],
+            ['本科学校：' + info['university'], '', '本科专业:' + info['major'], '', '毕业时间：' + info['graduation_time'] + '年', ''],
             ['手机号码：' + info['mobile'], '', '', '邮箱：' + info['email'], '', ''],
             ['', '', '', '', '', ''],
             ['初试\n成绩', '政治', '英语', info['test_name_third'], info['test_name_prof'], '总成绩'],
