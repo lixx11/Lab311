@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', True)
+if os.getenv('DJANGO_DEBUG', 'True') == 'True':
+    DEBUG = True
+    print('Django running in debug mode!')
+else:
+    DEBUG = False
 
 # django email for registration
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
@@ -45,6 +49,8 @@ if not DEBUG:
     X_FRAME_OPTIONS = 'DENY'
 else:
     ALLOWED_HOSTS = ['*', ]
+
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.core.mail import EmailMessage
 from django.core.mail.backends.smtp import EmailBackend
 
+
 admin.site.disable_action('delete_selected')
 admin.site.site_header = "清华大学工程物理系调剂信息管理系统"
 _all_fields = Profile._meta.get_fields()
@@ -56,17 +57,26 @@ class ProfileAdmin(admin.ModelAdmin):
 def download_profile_view(request):
     import pandas as pd
     import sqlite3
+    from django.contrib.auth.models import User
+    from django.utils.http import urlquote
+
 
     download_fields_dict = {field.name: field.verbose_name for field in _all_fields}
-    download_fields_dict.pop('user')
-    download_fields = list(download_fields_dict.keys())
-    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format("form".encode('utf8').decode('ISO-8859-1'))
+    download_fields_dict['user_id'] = '用户ID'
+    # download_fields = list(download_fields_dict.keys())
+
     db = settings.DATABASES['default']['NAME']
     con = sqlite3.connect(db)
     df = pd.read_sql_query("SELECT * from student_info_profile", con)
-    df = df[download_fields]
+    emails = []
+    for user_id in df.user_id:
+        email = User.objects.get(pk=user_id).email
+        emails.append(email)
     df.columns = [download_fields_dict[x] for x in df.columns]
+    df['邮箱'] = pd.Series(emails, index=df.index)
+
+    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename={0}".format('form')
     df.to_excel(response, index=False)
     return response
 
