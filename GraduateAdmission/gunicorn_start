@@ -2,6 +2,7 @@
 
 NAME="GraduateAdmission"
 BIND=unix:graduate_admission.sock
+DJANGO_DEBUG=False
 DJANGO_SETTINGS_MODULE=graduate_admission.settings
 DJANGO_WSGI_MODULE=graduate_admission.wsgi
 LOG_LEVEL=debug
