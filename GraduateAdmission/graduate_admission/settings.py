@@ -35,7 +35,7 @@ OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'month': 3, 'day': 14, 'hour': 12}
+DEADLINE = {'year': 2018, 'month': 3, 'day': 14, 'hour': 12}
 
 # website
 WEBSITE = os.getenv('DJANGO_WEBSITE', '127.0.0.1:8000')
