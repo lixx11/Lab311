@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import ProfileForm, FileUploadForm
 from .models import Profile
-import datetime
+from datetime import datetime
 from django.conf import settings
 
 
@@ -20,8 +20,11 @@ def submit_profile(request):
     except ObjectDoesNotExist:
         return redirect('/accounts/login')
 
-    now = datetime.datetime.now()
-    if now.month >= settings.DEADLINE['month'] and now.day >= settings.DEADLINE['day']:
+    now = datetime.now()
+    deadline = datetime(int(settings.YEAR),
+                        int(settings.DEADLINE['month']),
+                        int(settings.DEADLINE['day']))
+    if now > deadline:
         submission_over = True
     else:
         submission_over = False
