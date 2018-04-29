@@ -1,13 +1,15 @@
 #!/bin/bash
 
 NAME="SummerSchool"
-BIND=unix:/tmp/summer_school.sock
+BIND=unix:summer_school.sock
 DJANGO_SETTINGS_MODULE=summer_school.settings
 DJANGO_WSGI_MODULE=summer_school.wsgi
 LOG_LEVEL=debug
 
 
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export DJANGO_DEBUG=False
+export DJANGO_WEBSITE='www1.ep.tsinghua.edu.cn:8000'
 
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=$BIND \

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import datetime
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,27 +27,25 @@ EMAIL_HOST_PASSWORD = 'LXX1530546985'
 OFFICIAL_EMAIL_HOST = 'mails.tsinghua.edu.cn'
 OFFICIAL_FROM_EMAIL = 'li-xx15@mails.tsinghua.edu.cn'
 OFFICIAL_EMAIL_HOST_USER = 'li-xx15@mails.tsinghua.edu.cn'
-OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
+OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2018'
+
+# website
+WEBSITE = os.getenv('DJANGO_WEBSITE', '127.0.0.1:8000')
+YEAR = int(os.getenv('DJANGO_YEAR', '2018'))
 
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'month': 4, 'day': 1}
-
-# website
-WEBSITE = "http://127.0.0.1:8000"
-YEAR = '2018'  # IMPORTANT!!!
+DEADLINE = {'year': YEAR, 'month': 6, 'day': 7}
 
 # for deployment
 if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_BROWSER_XSS_FILTER = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
     ALLOWED_HOSTS = ['*', ]
     X_FRAME_OPTIONS = 'DENY'
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['*', ]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -110,7 +109,7 @@ WSGI_APPLICATION = 'summer_school.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'summer_school_%s.sqlite3' % YEAR),
+        'NAME': os.path.join(BASE_DIR, 'summer_school_%d.sqlite3' % YEAR),
     }
 }
 
