@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>清华大学核学科夏令营</title>
+</head>
+
+<body>
+
+<p>
+    您已成功注册清华大学核学科夏令营报名系统！请于{{ expiration_days }}天内点击以下链接激活（如链接点击无效，您可以将链接直接复制到浏览器地址栏内访问）
+</p>
+
+<p>
+    <a href="http://{{ WEBSITE }}{% url 'registration_activate' activation_key %}">
+        "http://{{ WEBSITE }}{% url 'registration_activate' activation_key %}"
+    </a>
+</p>
+<p>
+    清华大学工程物理系研究生办
+</p>
+</body>
+
+</html>
+
+
+{% comment %}
+**registration/activation_email.html**
+
+Used to generate the html body of the activation email. Should display a
+link the user can click to activate the account. This template has the
+following context:
+
+``activation_key``
+    The activation key for the new account.
+
+``expiration_days``
+    The number of days remaining during which the account may be
+    activated.
+
+``site``
+    An object representing the site on which the user registered;
+    depending on whether ``django.contrib.sites`` is installed, this
+    may be an instance of either ``django.contrib.sites.models.Site``
+    (if the sites application is installed) or
+    ``django.contrib.sites.requests.RequestSite`` (if not). Consult `the
+    documentation for the Django sites framework
+    <http://docs.djangoproject.com/en/dev/ref/contrib/sites/>`_ for
+    details regarding these objects' interfaces.
+
+``user``
+    The new user account
+
+``request``
+    ``HttpRequest`` instance for better flexibility.
+    For example it can be used to compute absolute register URL:
+
+        {{ request.scheme }}://{{ request.get_host }}{% url 'registration_activate' activation_key %}
+{% endcomment %}
