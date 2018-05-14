@@ -14,7 +14,11 @@ import os
 from datetime import datetime
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.getenv('DJANGO_DEBUG', 'True') == 'True':
+    DEBUG = True
+    print('Django running in debug mode!')
+else:
+    DEBUG = False
 
 # django email for registration
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
