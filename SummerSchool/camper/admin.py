@@ -25,7 +25,24 @@ class ProfileAdmin(admin.ModelAdmin):
         'check_status', 'dep_retest_grade', 'inet_retest_grade')
     list_display_links = ('name',)
     readonly_fields = site_readonly_fields
-    actions = ['send_email_action', ]
+    actions = ['send_email_action', 'pass_first_check', 'fail_first_check',
+               'nocheck_first_check']
+
+    def pass_first_check(self, request, queryset):
+        queryset.update(check_status='通过')
+
+    pass_first_check.short_description = '初审通过'
+
+    def fail_first_check(self, request, queryset):
+        queryset.update(check_status='不通过')
+
+    fail_first_check.short_description = '初审不通过'
+
+    def nocheck_first_check(self, request, queryset):
+        queryset.update(check_status='未审核')
+
+    nocheck_first_check.short_description = '初审未审核'
+
     search_fields = ['name', 'school', 'check_status', 'dep_retest_grade', 'inet_retest_grade']
     fieldsets = (
         ('基本信息', {
