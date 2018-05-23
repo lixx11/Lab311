@@ -49,6 +49,10 @@ class ProfileAdmin(admin.ModelAdmin):
             'classes': ('extrapretty',),
             'fields': ('personal_statement', 'school_report', 'other_material')
         }),
+        ('确认提交', {
+            'classes': ('extrapretty',),
+            'fields': ('is_confirmed',)
+        }),
         ('初试审核结果', {
             'classes': ('extrapretty',),
             'fields': ('dep_check_status', 'inet_check_status', 'check_status')
@@ -141,8 +145,11 @@ def download_profile_view(request):
     download_fields_dict = {field.name: field.verbose_name for field in all_fields}
     download_fields_dict.pop('user')
     download_fields = list(download_fields_dict.keys())
-    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format("报名表".encode('utf8').decode('ISO-8859-1'))
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument."
+                     "spreadsheetml.sheet")
+    response['Content-Disposition'] = "attachment; filename={0}.xlsx".format(
+        "报名表".encode('utf8').decode('ISO-8859-1'))
     db = settings.DATABASES['default']['NAME']
     con = sqlite3.connect(db)
     df = pd.read_sql_query("SELECT * from camper_profile", con)
