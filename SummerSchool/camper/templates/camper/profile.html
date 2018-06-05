@@ -123,8 +123,8 @@
                                         2-{{ profile_form.second_degree.value|default_if_none:"未填"|default:'未填' }}</li>
                                     <li>1-{{ profile_form.first_institute.value|default_if_none:"未填"|default:'未填' }};
                                         2-{{ profile_form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
-                                    <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填' }};
-                                        2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填' }}</li>
+                                    <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填'|truncatechars:8 }};
+                                        2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填'|truncatechars:8 }}</li>
                                     <li>{{ profile_form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
                                     <li>{{ profile_form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
                                 </ul>
@@ -309,8 +309,8 @@
                                             selected
                                             {% endif %}>核聚变与等离子物理
                                     </option>
-                                    <option value="核聚变与等离子物理"
-                                            {% if profile_form.first_interest.value == '核聚变与等离子物理' %}
+                                    <option value="核燃料循环与材料"
+                                            {% if profile_form.first_interest.value == '核燃料循环与材料' %}
                                             selected
                                             {% endif %}>核燃料循环与材料
                                     </option>
