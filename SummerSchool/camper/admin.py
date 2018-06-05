@@ -26,7 +26,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     readonly_fields = site_readonly_fields
     actions = ['send_email_action', 'pass_first_check', 'fail_first_check',
-               'nocheck_first_check']
+               'nocheck_first_check', 'cancell_submit_confirmed']
 
     def pass_first_check(self, request, queryset):
         queryset.update(check_status='通过')
@@ -42,6 +42,10 @@ class ProfileAdmin(admin.ModelAdmin):
         queryset.update(check_status='未审核')
 
     nocheck_first_check.short_description = '初审未审核'
+
+    def cancell_submit_confirmed(self, request, queryset):
+        queryset.update(is_confirmed='否')
+    cancell_submit_confirmed.short_description = '取消确认'
 
     search_fields = ['name', 'school', 'check_status', 'dep_retest_grade', 'inet_retest_grade']
     fieldsets = (
