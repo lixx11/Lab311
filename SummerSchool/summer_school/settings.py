@@ -40,7 +40,7 @@ YEAR = int(os.getenv('DJANGO_YEAR', '2018'))
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'year': YEAR, 'month': 6, 'day': 7}
+DEADLINE = {'year': YEAR, 'month': 6, 'day': 9}
 
 # for deployment
 if not DEBUG:
