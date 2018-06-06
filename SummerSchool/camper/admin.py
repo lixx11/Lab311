@@ -126,7 +126,7 @@ class ProfileAdmin(admin.ModelAdmin):
         context = dict()
         context['opts'] = opts
         context['nb_registraters'] = len(Profile.objects.all())
-        context['nb_complete_form'] = len(Profile.objects.exclude(is_confirmed=0))
+        context['nb_complete_form'] = len(Profile.objects.filter(is_confirmed='是'))
         context['nb_fileupload'] = len(Profile.objects.exclude(personal_statement='').exclude(school_report=''))
         context['nb_dep_pass'] = len(Profile.objects.filter(dep_check_status='通过'))
         context['nb_dep_fail'] = len(Profile.objects.filter(dep_check_status='不通过'))
