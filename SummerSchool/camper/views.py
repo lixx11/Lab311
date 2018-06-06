@@ -40,7 +40,8 @@ def submit_profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = user
-            profile.save()
+            update_fields = form.fields.keys()
+            profile.save(update_fields=update_fields)
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
             file_upload_form = FileUploadForm(instance=profile)
