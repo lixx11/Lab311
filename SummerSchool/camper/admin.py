@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile
+from .models import Profile, InetProfile
 from django.urls import path
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -14,6 +14,42 @@ site_readonly_fields = ['name', 'school', 'gender', 'age', 'phone_number', 'majo
                         'first_interest', 'second_interest', 'fund_applied', 'fund_application_text',
                         'personal_statement', 'school_report', 'other_material']
 
+def pass_first_check(modeladmin, request, queryset):
+    queryset.update(check_status='通过')
+
+
+def fail_first_check(modeladmin, request, queryset):
+    queryset.update(check_status='不通过')
+
+
+def nocheck_first_check(modeladmin, request, queryset):
+    queryset.update(check_status='未审核')
+
+
+def cancel_submit_confirmed(modeladmin, request, queryset):
+    queryset.update(is_confirmed='否')
+
+
+def send_email_action(modeladmin, request, queryset):
+    opts = modeladmin.model._meta
+    recipients = []
+    count = 0
+    for obj in queryset:
+        email = obj.user.email
+        name = obj.name
+        email_tag = "email_tag" + str(count)
+        recipients.append([name, email, email_tag])
+        count += 1
+    context = {'opts': opts, 'recipients': recipients}
+    return render(request, 'admin/send_email.html', context)
+
+
+pass_first_check.short_description = '初审通过'
+fail_first_check.short_description = '初审不通过'
+nocheck_first_check.short_description = '初审未审核'
+cancel_submit_confirmed.short_description = '取消确认'
+send_email_action.short_description = '发送邮件'
+
 
 # Register your models here.
 @admin.register(Profile)
@@ -25,29 +61,11 @@ class ProfileAdmin(admin.ModelAdmin):
         'check_status', 'dep_retest_grade', 'inet_retest_grade')
     list_display_links = ('name',)
     readonly_fields = site_readonly_fields
-    actions = ['send_email_action', 'pass_first_check', 'fail_first_check',
-               'nocheck_first_check', 'cancell_submit_confirmed']
+    actions = [send_email_action, pass_first_check, fail_first_check,
+               nocheck_first_check, cancel_submit_confirmed]
 
-    def pass_first_check(self, request, queryset):
-        queryset.update(check_status='通过')
-
-    pass_first_check.short_description = '初审通过'
-
-    def fail_first_check(self, request, queryset):
-        queryset.update(check_status='不通过')
-
-    fail_first_check.short_description = '初审不通过'
-
-    def nocheck_first_check(self, request, queryset):
-        queryset.update(check_status='未审核')
-
-    nocheck_first_check.short_description = '初审未审核'
-
-    def cancell_submit_confirmed(self, request, queryset):
-        queryset.update(is_confirmed='否')
-    cancell_submit_confirmed.short_description = '取消确认'
-
-    search_fields = ['name', 'school', 'check_status', 'dep_retest_grade', 'inet_retest_grade']
+    search_fields = ['name', 'school', 'check_status', 'dep_retest_grade',
+                     'inet_retest_grade']
     fieldsets = (
         ('基本信息', {
             'classes': ('extrapretty'),
@@ -99,21 +117,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
     user_email.short_description = '邮箱'
 
-    def send_email_action(self, request, queryset):
-        opts = self.model._meta
-        recipients = []
-        count = 0
-        for obj in queryset:
-            email = obj.user.email
-            name = obj.name
-            email_tag = "email_tag" + str(count)
-            recipients.append([name, email, email_tag])
-            count += 1
-        context = {'opts': opts, 'recipients': recipients}
-        return render(request, 'admin/send_email.html', context)
-
-    send_email_action.short_description = '发送邮件'
-
     def get_urls(self):
         urlpatterns = super(ProfileAdmin, self).get_urls()
         urlpatterns.insert(0, path('send_email/', self.admin_site.admin_view(send_email_view)))
@@ -155,6 +158,32 @@ class ProfileAdmin(admin.ModelAdmin):
             Profile.objects.filter(check_status='通过').filter(inet_retest_grade='未审核')) + len(
             Profile.objects.filter(check_status='通过').filter(inet_retest_grade=None))
         return render(request, 'admin/statistics.html', context)
+
+
+@admin.register(InetProfile)
+class InetProfileAdmin(ProfileAdmin):
+    readonly_fields = site_readonly_fields + \
+                      ['is_confirmed', 'fund_status', 'dep_check_status',
+                       'check_status', 'dep_retest_grade']
+    list_display = (
+        'name', 'school', 'user_email', 'major_rank2', 'class_rank2',
+        'inet_check_status', 'inet_retest_grade')
+    list_display_links = ('name',)
+    search_fields = ['name', 'school']
+
+    def get_actions(self, request):
+        actions = super(InetProfileAdmin, self).get_actions(request)
+        if 'send_email_action' in actions:
+            del actions['send_email_action']
+        if 'pass_first_check' in actions:
+            del actions['pass_first_check']
+        if 'fail_first_check' in actions:
+            del actions['fail_first_check']
+        if 'nocheck_first_check' in actions:
+            del actions['nocheck_first_check']
+        if 'cancel_submit_confirmed' in actions:
+            del actions['cancel_submit_confirmed']
+        return actions
 
 
 def download_profile_view(request):
