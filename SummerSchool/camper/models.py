@@ -140,5 +140,5 @@ class Profile(models.Model):
 class InetProfile(Profile):
     class Meta:
         proxy = True
-        verbose_name = '用户信息(核研院)'
-        verbose_name_plural = '所有用户信息(核研院)'
+        verbose_name = '报名信息(核研院)'
+        verbose_name_plural = '所有报名信息(核研院)'
