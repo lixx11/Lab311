@@ -50,15 +50,15 @@
             </form>
         </div>
     </main>
-    <script>
-        var now = new Date();
-        var deadline = new Date("{{ DEADLINE.year }}/{{ DEADLINE.month }}/{{ DEADLINE.day }}")
-        if (now  > deadline) {
-            alert("报名已截止，即将返回登陆页");
-            var url = window.location.href;
-            var arr = url.split("/");
-            var index_url = arr[0] + "//" + arr[2]
-            window.location.href = index_url;
-        }
-    </script>
+{#    <script>#}
+{#        var now = new Date();#}
+{#        var deadline = new Date("{{ DEADLINE.year }}/{{ DEADLINE.month }}/{{ DEADLINE.day }}")#}
+{#        if (now  > deadline) {#}
+{#            alert("报名已截止，即将返回登陆页");#}
+{#            var url = window.location.href;#}
+{#            var arr = url.split("/");#}
+{#            var index_url = arr[0] + "//" + arr[2]#}
+{#            window.location.href = index_url;#}
+{#        }#}
+{#    </script>#}
 {% endblock %}
