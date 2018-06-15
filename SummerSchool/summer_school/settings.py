@@ -20,6 +20,12 @@ if os.getenv('DJANGO_DEBUG', 'True') == 'True':
 else:
     DEBUG = False
 
+if os.getenv('DJANGO_RELEASE', 'False') == 'False':
+    RELEASE = False
+else:
+    RELEASE = True
+    print("Release results!")
+
 # django email for registration
 DEFAULT_FROM_EMAIL = '18810307602@139.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

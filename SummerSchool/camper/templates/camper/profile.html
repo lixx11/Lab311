@@ -51,14 +51,23 @@
                 <div class="row text-center justify-content-center">
                     <div id="notification">
                         {% if submission_over %}
+                            {% if not release %}
                             报名信息提交已截止，请等候审核结果通知。
+                            {% else %}
+                                {% if profile.check_status == '通过' %}
+                                    <p>祝贺您获得通过本次夏令营初试，请按照http://www.ep.tsinghua.edu.cn公告按时参加活动。</p>
+                                    <p>如有特殊情况不能参加夏令营，请回复<a href="mailto:li-xx15@mails.tsinghua.edu.cn">邮件</a>告知。</p>
+                                    <p>6月30日9:00-16:30 报到，地点：工程物理系(刘卿楼)104室。</p>
+                                    <p>本次暑期夏令营免费为外地学生统一安排了住宿(清华大学核研院招待所(昌平))。</p>
+                                {% endif %}
+                            {% endif %}
                         {% elif profile_form.is_confirmed.value != '是' %}
                             您信息尚未提交，请点击填表图标完成报名信息。
                         {% elif not file_upload_form.personal_statement.value %}
                             您个人陈述文件未上传，请点击传文件图标上传相关文件。
                         {% elif not file_upload_form.school_report.value %}
                             您成绩单尚未上传，请点击传文件图标上传相关文件。
-                        {% else %}
+                        {% elif not  release %}
                             报名信息与相关文件已成功提交，请等候审核结果通知。
                             <small>(在报名截止前，文件可重复提交，系统仅保留最后一次提交的结果。)</small>
                         {% endif %}

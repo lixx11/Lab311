@@ -45,7 +45,11 @@ def submit_profile(request):
             profile = Profile.objects.get(user=user)
             profile_form = ProfileForm(instance=profile)
             file_upload_form = FileUploadForm(instance=profile)
-            context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user}
+            context = {
+                'profile_form': profile_form,
+                'file_upload_form': file_upload_form,
+                'user': user
+            }
             return render(request, 'camper/profile.html', context)
         else:
             return HttpResponse(form.errors)
@@ -53,8 +57,14 @@ def submit_profile(request):
         profile = Profile.objects.get_or_create(user=user)[0]
         profile_form = ProfileForm(instance=profile)
         file_upload_form = FileUploadForm(instance=profile)
-        context = {'profile_form': profile_form, 'file_upload_form': file_upload_form, 'user': user,
-                   'submission_over': submission_over}
+        context = {
+            'profile_form': profile_form,
+            'file_upload_form': file_upload_form,
+            'user': user,
+            'submission_over': submission_over,
+            'release': settings.RELEASE,
+            'profile': profile,
+        }
         return render(request, 'camper/profile.html', context)
 
 

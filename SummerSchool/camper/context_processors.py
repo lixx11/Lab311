@@ -6,4 +6,5 @@ def global_settings(request):
     return {
         'DEADLINE': settings.DEADLINE,
         'WEBSITE': settings.WEBSITE,
+        'RELEASE': settings.RELEASE,
     }
