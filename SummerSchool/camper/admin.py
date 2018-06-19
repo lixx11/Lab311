@@ -202,8 +202,10 @@ def download_profile_view(request):
     db = settings.DATABASES['default']['NAME']
     con = sqlite3.connect(db)
     df = pd.read_sql_query("SELECT * from camper_profile", con)
+    emails = [Profile.objects.get(user_id=x).user.email for x in df['user_id'].values]
     df = df[download_fields]
     df.columns = [download_fields_dict[x] for x in df.columns]
+    df['邮箱'] = pd.Series(emails, index=df.index)
     df.to_excel(response, index=False)
     return response
 
