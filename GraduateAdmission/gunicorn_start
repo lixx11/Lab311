@@ -11,7 +11,7 @@ LOG_LEVEL=debug
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export DJANGO_DEBUG=False
 export DJANGO_WEBSITE='www1.ep.tsinghua.edu.cn:8000'
-export DJANGO_YEAR=2018
+export DJANGO_YEAR=2019
 
 exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=$BIND \

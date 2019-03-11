@@ -24,7 +24,7 @@ DEFAULT_FROM_EMAIL = '18810307602@139.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.139.com'
 EMAIL_HOST_USER = '18810307602'
-EMAIL_HOST_PASSWORD = 'LXX1530546985'
+EMAIL_HOST_PASSWORD = 'xxliZGYD2019'
 
 # official email for important notification
 OFFICIAL_EMAIL_HOST = 'mails.tsinghua.edu.cn'
@@ -35,11 +35,11 @@ OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2015'
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'year': 2018, 'month': 3, 'day': 14, 'hour': 12}
+DEADLINE = {'year': 2019, 'month': 3, 'day': 13, 'hour': 12}
 
 # website
-WEBSITE = os.getenv('DJANGO_WEBSITE', '127.0.0.1:8000')
-YEAR = int(os.getenv('DJANGO_YEAR', '2018'))
+WEBSITE = os.getenv('DJANGO_WEBSITE', 'www1.ep.tsinghua.edu.cn:8000')
+YEAR = int(os.getenv('DJANGO_YEAR', '2019'))
 
 # for deployment
 if not DEBUG:
