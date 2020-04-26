@@ -5,31 +5,35 @@ from django.contrib.auth.models import User
 # 志愿
 interest_choices = (
     (
-        '核能',
-        '核能方向 - 核能与核技术工程（085226）- 清华本部'
+        '能源动力-核能与核技术工程（清华本部）- 核能方向',
+        '能源动力-核能与核技术工程（清华本部）- 核能方向'
     ),
     (
-        '核燃料',
-        '核燃料方向（定向） - 核能与核技术工程（085226）- 清华本部'
+        '能源动力-核能与核技术工程（清华本部）-核技术方向',
+        '能源动力-核能与核技术工程（清华本部）-核技术方向'
     ),
     (
-        '核技术',
-        '核技术方向 - 核能与核技术工程（085226）- 清华本部'
+        '能源动力-核能与核技术工程（清华本部）-临床医学交叉人才培养项目',
+        '能源动力-核能与核技术工程（清华本部）-临床医学交叉人才培养项目'
     ),
     (
-        '公共安全',
-        '公共安全 - 安全工程（085224） - 深圳研究生院',
+        '安全科学与技术',
+        '安全科学与技术',
     ),
     (
-        '核能安全',
-        '核能安全 - 安全工程（085224） - 深圳研究生院',
+        '资源与环境-安全工程（深研院）-公共安全方向',
+        '资源与环境-安全工程（深研院）-公共安全方向',
     ),
+    (
+        '资源与环境-安全工程（深研院）-核能方向',
+        '资源与环境-安全工程（深研院）-核能方向',
+    )
 )
 
 exam_subject_choices = (
-    ('安全系统', '安全系统工程'),
-    ('热工', '热工基础'),
-    ('力学', '力学基础'),
+    ('安全系统工程', '安全系统工程'),
+    ('热工基础', '热工基础'),
+    ('核燃料循环与材料基础', '核燃料循环与材料基础'),
     ('核物理', '核物理'),
     ('辐射防护', '辐射防护'),
     ('信号与系统', '信号与系统'),
@@ -61,8 +65,8 @@ class Profile(models.Model):
         verbose_name='原报考院系', max_length=128, blank=True, null=True)
     first_major = models.CharField(
         verbose_name='原报考专业', max_length=128, blank=True, null=True)
-    yes_or_no_choices = (('否', '否'), ('是', '是'))
-    exam_for_first_institute = models.CharField(verbose_name='是否参加原报考院系复试', choices=yes_or_no_choices,
+    exam_or_not_choices = (('否', '不参加'), ('是', '参加'))
+    exam_for_first_institute = models.CharField(verbose_name='是否参加原报考院系复试', choices=exam_or_not_choices,
                                                 max_length=128, blank=True, null=True)
 
     # 成绩
@@ -79,15 +83,17 @@ class Profile(models.Model):
     total_score = models.IntegerField(verbose_name='总分', blank=True, null=True)
 
     interest1 = models.CharField(
-        verbose_name='第一志愿', choices=interest_choices, max_length=8, blank=True, null=True)
+        verbose_name='第一志愿', choices=interest_choices, max_length=128, blank=True, null=True)
     interest2 = models.CharField(
-        verbose_name='第二志愿', choices=interest_choices, max_length=8, blank=True, null=True)
+        verbose_name='第二志愿', choices=interest_choices, max_length=128, blank=True, null=True)
     interest3 = models.CharField(
-        verbose_name='第三志愿', choices=interest_choices, max_length=8, blank=True, null=True)
+        verbose_name='第三志愿', choices=interest_choices, max_length=128, blank=True, null=True)
     interest4 = models.CharField(
-        verbose_name='第四志愿', choices=interest_choices, max_length=8, blank=True, null=True)
+        verbose_name='第四志愿', choices=interest_choices, max_length=128, blank=True, null=True)
     interest5 = models.CharField(
-        verbose_name='第五志愿', choices=interest_choices, max_length=8, blank=True, null=True)
+        verbose_name='第五志愿', choices=interest_choices, max_length=128, blank=True, null=True)
+    interest6 = models.CharField(
+        verbose_name='第六志愿', choices=interest_choices, max_length=128, blank=True, null=True)
 
     exam_subject = models.CharField(verbose_name='考试科目', choices=exam_subject_choices, max_length=128, blank=True,
                                     null=True)
@@ -97,6 +103,7 @@ class Profile(models.Model):
         verbose_name='所有材料', upload_to='uploads', blank=True, null=True)
 
     # 确认提交
+    yes_or_no_choices = (('否', '否'), ('是', '是'))
     is_confirmed = models.CharField(verbose_name='确认提交', choices=yes_or_no_choices, max_length=128, default='否',
                                     blank=True)
 

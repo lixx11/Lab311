@@ -97,20 +97,27 @@ def download_form(request):
     interest_dict = {x[0]: x[1] for x in interest_choices}
     interest_dict['None'] = ''
     subject_dict = {x[0]: x[1] for x in exam_subject_choices}
-    info = {'name': str(profile.name), 'id': str(profile.student_id),  # basic information
+
+    info = {'name': str(profile.name),
+            'sex': str(profile.gender),
+            'id': str(profile.student_id),  # basic information
             'university': str(profile.school), 'major': str(profile.major),
             'graduation_time': str(profile.graduate_year), 'email': str(profile.user.email),
             'mobile': str(profile.phone_number),
-            'score_politics': str(profile.politics), 'score_english': str(profile.english),  # scores
+            # scores
+            'score_politics': str(profile.politics), 'score_english': str(profile.english),
             'score_third': str(profile.subject3_score), 'test_name_third': str(profile.subject3_name),
             'score_prof': str(profile.subject_major_score), 'test_name_prof': str(profile.subject_major_name),
             'score_total': str(profile.total_score),
-            'orignial_target_major': str(profile.first_institute) + '-' + str(profile.first_major),  # targets
+            'original_target_test': str(profile.exam_for_first_institute),
+            # targets
+            'original_target_major': str(profile.first_institute) + '-' + str(profile.first_major),
             'target_1': interest_dict[str(profile.interest1)],
             'target_2': interest_dict[str(profile.interest2)],
             'target_3': interest_dict[str(profile.interest3)],
             'target_4': interest_dict[str(profile.interest4)],
             'target_5': interest_dict[str(profile.interest5)],
+            'target_6': interest_dict[str(profile.interest6)],
             'chosen_test_name': subject_dict[profile.exam_subject]}
     info2pdf('/tmp/form-%s.pdf' % user, info=info)
 
