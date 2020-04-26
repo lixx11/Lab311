@@ -65,7 +65,7 @@ class Profile(models.Model):
         verbose_name='原报考院系', max_length=128, blank=True, null=True)
     first_major = models.CharField(
         verbose_name='原报考专业', max_length=128, blank=True, null=True)
-    exam_or_not_choices = (('否', '不参加'), ('是', '参加'))
+    exam_or_not_choices = (('不参加', '不参加'), ('参加', '参加'))
     exam_for_first_institute = models.CharField(verbose_name='是否参加原报考院系复试', choices=exam_or_not_choices,
                                                 max_length=128, blank=True, null=True)
 

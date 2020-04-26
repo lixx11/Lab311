@@ -244,17 +244,17 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-form-label col-sm-6 text-right">是否参加原报考院系复试：</label>
                                     <div class="col-sm-1">
-                                        <input type="radio" name="exam_for_first_institute" value="是"
+                                        <input type="radio" name="exam_for_first_institute" value="参加"
                                                id="exam_for_first_institute_yes"
-                                                {% if profile_form.exam_for_first_institute.value == '是' %}
+                                                {% if profile_form.exam_for_first_institute.value == '参加' %}
                                                checked
                                                 {% endif %}>
                                         <label for="exam_for_first_institute_yes" class="col-form-label">是</label>
                                     </div>
                                     <div class="col-sm-1">
-                                        <input type="radio" name="exam_for_first_institute" value="否"
+                                        <input type="radio" name="exam_for_first_institute" value="不参加"
                                                id="exam_for_first_institute_no"
-                                                {% if profile_form.exam_for_first_institute.value == '否' %}
+                                                {% if profile_form.exam_for_first_institute.value == '不参加' %}
                                                checked {% endif %}>
                                         <label for="exam_for_first_institute_no" class="col-form-label">否</label>
                                     </div>
