@@ -57,8 +57,10 @@
                                 {% if profile.check_status == '通过' %}
                                     <p>祝贺您获得通过本次夏令营初试，请按照http://www.ep.tsinghua.edu.cn公告按时参加活动。</p>
                                     <p>如有特殊情况不能参加夏令营，请回复<a href="mailto:li-xx15@mails.tsinghua.edu.cn">邮件</a>告知。</p>
-                                    <p>6月30日9:00-16:30 报到，地点：工程物理系(刘卿楼)104室。</p>
+                                    <p>7月10日9:00-16:30 报到，地点：工程物理系(刘卿楼)104室。</p>
                                     <p>本次暑期夏令营免费为外地学生统一安排了住宿(清华大学核研院招待所(昌平))。</p>
+                                {% else %}
+                                    <p>很遗憾您未能通过本次夏令营初审</p>
                                 {% endif %}
                             {% endif %}
                         {% elif profile_form.is_confirmed.value != '是' %}
@@ -117,6 +119,7 @@
                                     <li class="text-right">志愿学位：</li>
                                     <li class="text-right">志愿单位：</li>
                                     <li class="text-right">志愿方向：</li>
+                                    <li class="text-right">志愿导师：</li>
                                     <li class="text-right">服装大小：</li>
                                     <li class="text-right">资助申请：</li>
                                 </ul>
@@ -134,6 +137,8 @@
                                         2-{{ profile_form.second_institute.value|default_if_none:"未填"|default:'未填' }}</li>
                                     <li>1-{{ profile_form.first_interest.value|default_if_none:"未填"|default:'未填'|truncatechars:7 }};
                                         2-{{ profile_form.second_interest.value|default_if_none:"未填"|default:'未填'|truncatechars:7 }}</li>
+                                    <li>1-{{ profile_form.first_advisor.value|default_if_none:"未填"|default:'未填'|truncatechars:7 }};
+                                        2-{{ profile_form.second_advisor.value|default_if_none:"未填"|default:'未填'|truncatechars:7 }}</li>
                                     <li>{{ profile_form.cloth_size.value|default_if_none:"未填"|default:'未填' }}</li>
                                     <li>{{ profile_form.fund_applied.value|default_if_none:"未填"|default:'未填' }}</li>
                                 </ul>
@@ -292,13 +297,9 @@
                                 <select class="form-control col-sm-3 text-right" id="first_interest"
                                         name="first_interest">
                                     <option value="">------------------------</option>
-                                    <option value="粒子物理实验" {% if profile_form.first_interest.value == '粒子物理实验' %}
+                                    <option value="粒子物理与核物理" {% if profile_form.first_interest.value == '粒子物理与核物理' %}
                                             selected
-                                    {% endif %}>粒子物理实验
-                                    </option>
-                                    <option value="粒子物理理论" {% if profile_form.first_interest.value == '粒子物理理论' %}
-                                            selected
-                                    {% endif %}>粒子物理理论
+                                    {% endif %}>粒子物理与核物理
                                     </option>
                                     <option value="天体物理" {% if profile_form.first_interest.value == '天体物理' %}
                                             selected
@@ -346,14 +347,9 @@
                                 <select class="form-control col-sm-3 text-right" id="second_interest"
                                         name="second_interest">
                                     <option value="">------------------------</option>
-                                    <option value="粒子物理实验" {% if profile_form.second_interest.value == '粒子物理实验' %}
+                                    <option value="粒子物理与核物理" {% if profile_form.second_interest.value == '粒子物理与核物理' %}
                                             selected
-                                    {% endif %}>粒子物理实验
-                                    </option>
-                                    <option value="粒子物理理论" {% if profile_form.second_interest.value == '粒子物理理论' %}
-                                            selected
-                                    {% endif %}>粒子物理理论
-                                    </option>
+                                    {% endif %}>粒子物理与核物理
                                     <option value="天体物理" {% if profile_form.second_interest.value == '天体物理' %}
                                             selected
                                     {% endif %}>天体物理
@@ -395,6 +391,14 @@
                                     {% endif %}>安全科学与工程
                                     </option>
                                 </select>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label for="first_advisor" class="col-form-label col-sm-3 text-right">一志愿导师：</label>
+                                <input type="text" class="form-control col-sm-3 text-right" id="first_advisor"
+                                       name="first_advisor" value="{{ profile_form.first_advisor.value|default:'' }}">
+                                <label for="second_advisor" class="col-form-label col-sm-2 text-right">二志愿导师：</label>
+                                <input type="text" class="form-control col-sm-3 text-right" id="second_advisor"
+                                       name="second_advisor" value="{{ profile_form.second_advisor.value|default:'' }}">
                             </div>
                             <div class="dropdown-divider"></div>
 

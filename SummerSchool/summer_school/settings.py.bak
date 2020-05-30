@@ -27,11 +27,11 @@ else:
     print("Release results!")
 
 # django email for registration
-DEFAULT_FROM_EMAIL = 'nmtzwh@sina.com'
+DEFAULT_FROM_EMAIL = '18810307602@139.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sina.com'
-EMAIL_HOST_USER = 'nmtzwh'
-EMAIL_HOST_PASSWORD = ')^++KaA)tjJ8=y!d'
+EMAIL_HOST = 'smtp.139.com'
+EMAIL_HOST_USER = '18810307602'
+EMAIL_HOST_PASSWORD = 'YD1530546985'
 
 # official email for important notification
 OFFICIAL_EMAIL_HOST = 'mails.tsinghua.edu.cn'
@@ -46,7 +46,7 @@ YEAR = int(os.getenv('DJANGO_YEAR', '2019'))
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = 'profile'
-DEADLINE = {'year': YEAR, 'month': 6, 'day': 10}
+DEADLINE = {'year': YEAR, 'month': 6, 'day': 8}
 
 # for deployment
 if not DEBUG:

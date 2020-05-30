@@ -11,7 +11,7 @@ admin.site.disable_action('delete_selected')
 admin.site.site_header = "清华大学核学科夏令营管理后台"
 site_readonly_fields = ['name', 'school', 'gender', 'age', 'phone_number', 'major_number', 'major_rank', 'class_number',
                         'class_rank', 'first_degree', 'second_degree', 'first_institute', 'second_institute',
-                        'first_interest', 'second_interest', 'fund_applied', 'fund_application_text',
+                        'first_interest', 'second_interest', 'first_advisor', 'second_advisor', 'fund_applied', 'fund_application_text',
                         'personal_statement', 'school_report', 'other_material']
 
 def pass_first_check(modeladmin, request, queryset):
@@ -77,8 +77,8 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
         ('志愿方向', {
             'classes': ('extrapretty',),
-            'fields': (('first_degree', 'first_institute', 'first_interest'),
-                       ('second_degree', 'second_institute', 'second_interest')),
+            'fields': (('first_degree', 'first_institute', 'first_interest', 'first_advisor'),
+                       ('second_degree', 'second_institute', 'second_interest', 'second_advisor')),
         }),
         ('资助申请', {
             'classes': ('extrapretty',),

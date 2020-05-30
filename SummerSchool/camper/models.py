@@ -37,8 +37,8 @@ class Profile(models.Model):
     # 志愿
     degree_choices = (('博士', '博士'), ('硕士', '硕士'))
     institute_choices = (('工物系', '工物系'), ('核研院', '核研院'))
-    interest_choices = (('粒子物理实验', '粒子物理实验'),
-                        ('粒子物理理论', '粒子物理理论'), ('天体物理', '天体物理'),
+    interest_choices = (('粒子物理与核物理', '粒子物理与核物理'),
+                        ('天体物理', '天体物理'),
                         ('核能科学与工程', '核能科学与工程'),
                         ('裂变能科学与工程', '裂变能科学与工程'),
                         ('核聚变与等离子物理', '核聚变与等离子物理'),
@@ -71,6 +71,12 @@ class Profile(models.Model):
                                        choices=interest_choices,
                                        max_length=128, blank=True,
                                        null=True)
+    first_advisor = models.CharField(verbose_name='一志愿导师',
+                                     max_length=128, blank=True,
+                                     null=True)
+    second_advisor = models.CharField(verbose_name='二志愿导师',
+                                      max_length=128, blank=True,
+                                      null=True)
     # 资助申请
     yes_or_no_choices = (('否', '否'), ('是', '是'))
     fund_applied = models.CharField(verbose_name='是否申请资助',
