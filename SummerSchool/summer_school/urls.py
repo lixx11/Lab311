@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^$', views.index),
     path('profile/', views.submit_profile, name='profile'),
     path('upload/', views.submit_files, name='upload'),
+    path('download_form/', views.download_form, name='download_form'),
     path('accounts/', include('registration.backends.default.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -9,10 +9,10 @@ from django.conf import settings
 
 admin.site.disable_action('delete_selected')
 admin.site.site_header = "清华大学核学科夏令营管理后台"
-site_readonly_fields = ['name', 'school', 'gender', 'age', 'phone_number', 'major_number', 'major_rank', 'class_number',
-                        'class_rank', 'first_degree', 'second_degree', 'first_institute', 'second_institute',
-                        'first_interest', 'second_interest', 'first_advisor', 'second_advisor', 'fund_applied', 'fund_application_text',
-                        'personal_statement', 'school_report', 'other_material']
+# site_readonly_fields = ['name', 'school', 'gender', 'phone_number', 'major_number', 'major_rank', 
+#                         'first_degree', 'second_degree', 'first_institute', 'second_institute',
+#                         'first_interest', 'second_interest', 'first_advisor', 'second_advisor', 'fund_applied', 'fund_application_text',
+#                         'personal_statement', 'school_report', 'other_material']
 
 def pass_first_check(modeladmin, request, queryset):
     queryset.update(check_status='通过')
@@ -56,51 +56,12 @@ send_email_action.short_description = '发送邮件'
 class ProfileAdmin(admin.ModelAdmin):
     list_per_page = 1000
     exclude = ('user',)
-    list_display = (
-        'name', 'school', 'user_email', 'major_rank2', 'class_rank2', 'dep_check_status', 'inet_check_status',
-        'check_status', 'dep_retest_grade', 'inet_retest_grade')
-    list_display_links = ('name',)
-    readonly_fields = site_readonly_fields
+    # readonly_fields = site_readonly_fields
     actions = [send_email_action, pass_first_check, fail_first_check,
                nocheck_first_check, cancel_submit_confirmed]
 
     search_fields = ['name', 'school', 'check_status', 'dep_retest_grade',
                      'inet_retest_grade']
-    fieldsets = (
-        ('基本信息', {
-            'classes': ('extrapretty'),
-            'fields': (('name', 'school', 'gender', 'age', 'phone_number'),)
-        }),
-        ('成绩', {
-            'classes': ('extrapretty'),
-            'fields': (('major_number', 'major_rank'), ('class_number', 'class_rank'),),
-        }),
-        ('志愿方向', {
-            'classes': ('extrapretty',),
-            'fields': (('first_degree', 'first_institute', 'first_interest', 'first_advisor'),
-                       ('second_degree', 'second_institute', 'second_interest', 'second_advisor')),
-        }),
-        ('资助申请', {
-            'classes': ('extrapretty',),
-            'fields': ('fund_applied', 'fund_application_text', 'fund_status')
-        }),
-        ('文件', {
-            'classes': ('extrapretty',),
-            'fields': ('personal_statement', 'school_report', 'other_material')
-        }),
-        ('确认提交', {
-            'classes': ('extrapretty',),
-            'fields': ('is_confirmed',)
-        }),
-        ('初试审核结果', {
-            'classes': ('extrapretty',),
-            'fields': ('dep_check_status', 'inet_check_status', 'check_status')
-        }),
-        ('复试结果', {
-            'classes': ('extrapretty',),
-            'fields': ('dep_retest_grade', 'inet_retest_grade')
-        }),
-    )
 
     def class_rank2(self, obj):
         return "%s / %s" % (obj.class_rank, obj.class_number)
@@ -162,13 +123,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(InetProfile)
 class InetProfileAdmin(ProfileAdmin):
-    readonly_fields = site_readonly_fields + \
-                      ['is_confirmed', 'fund_status', 'dep_check_status',
-                       'check_status', 'dep_retest_grade']
-    list_display = (
-        'name', 'school', 'user_email', 'major_rank2', 'class_rank2',
-        'inet_check_status', 'inet_retest_grade')
-    list_display_links = ('name',)
     search_fields = ['name', 'school']
 
     def get_actions(self, request):

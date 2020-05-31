@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from datetime import datetime
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv('DJANGO_DEBUG', 'True') == 'True':
@@ -27,21 +26,21 @@ else:
     print("Release results!")
 
 # django email for registration
-DEFAULT_FROM_EMAIL = 'nmtzwh@sina.com'
+DEFAULT_FROM_EMAIL = '18810307602@139.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sina.com'
-EMAIL_HOST_USER = 'nmtzwh'
-EMAIL_HOST_PASSWORD = ')^++KaA)tjJ8=y!d'
+EMAIL_HOST = 'smtp.139.com'
+EMAIL_HOST_USER = '18810307602'
+EMAIL_HOST_PASSWORD = 'YD1530546985'
 
 # official email for important notification
 OFFICIAL_EMAIL_HOST = 'mails.tsinghua.edu.cn'
 OFFICIAL_FROM_EMAIL = 'li-xx15@mails.tsinghua.edu.cn'
 OFFICIAL_EMAIL_HOST_USER = 'li-xx15@mails.tsinghua.edu.cn'
-OFFICIAL_EMAIL_HOST_PASSWORD = 'lixx2019'
+OFFICIAL_EMAIL_HOST_PASSWORD = 'xxli2020'
 
 # website
 WEBSITE = os.getenv('DJANGO_WEBSITE', '127.0.0.1:8000')
-YEAR = int(os.getenv('DJANGO_YEAR', '2019'))
+YEAR = int(os.getenv('DJANGO_YEAR', '2020'))
 
 # registration
 ACCOUNT_ACTIVATION_DAYS = 7
